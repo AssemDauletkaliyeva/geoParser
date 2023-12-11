@@ -1,0 +1,16 @@
+https://en.wikipedia.org/wiki/List_of_cities_in_Kazakhstan
+https://en.wikipedia.org/wiki/Administrative_divisions_of_Kazakhstan
+Выбери из текста этих веб-страниц все названия стран (countries), областей (regions), районов (districts), населенных пунктов (settlements)  и верни на трех языках (казахский, английский, русский) в виде кода Python по образцу:
+countries = [
+    ["name_in_english", [("name_in_kz", "kz"), ("name_in_en", "en"), ("name_in_ru", "ru")]],
+    ...]
+regions = [
+    ["name_in_english", [("name_in_kz", "kz"), ("name_in_en", "en"), ("name_in_ru", "ru")]],
+    ...]
+districts = [
+    ["name_in_english", [("name_in_kz", "kz"), ("name_in_en", "en"), ("name_in_ru", "ru")]],
+    ...]
+settlements = [
+    ["name_in_english", [("name_kz", "kz"), ("name_en", "en"), ("name_ru", "ru")]],
+    ...]
+
