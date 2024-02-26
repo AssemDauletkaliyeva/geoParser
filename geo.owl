@@ -1,827 +1,1002 @@
 <?xml version="1.0"?>
-<rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
-         xmlns:xsd="http://www.w3.org/2001/XMLSchema#"
-         xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#"
-         xmlns:owl="http://www.w3.org/2002/07/owl#"
-         xml:base="http://www.aiu.kz/hsite/society"
-         xmlns="http://www.aiu.kz/hsite/society#">
+<rdf:RDF xmlns="http://www.aiu.kz/ontology/society"
+     xml:base="http://www.aiu.kz/ontology/society"
+     xmlns:owl="http://www.w3.org/2002/07/owl#"
+     xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+     xmlns:xml="http://www.w3.org/XML/1998/namespace"
+     xmlns:xsd="http://www.w3.org/2001/XMLSchema#"
+     xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#"
+     xmlns:society="http://www.aiu.kz/ontology/society#">
+    <owl:Ontology rdf:about="http://www.aiu.kz/ontology/society">
+        <rdfs:comment>Онтология родственных отношений</rdfs:comment>
+    </owl:Ontology>
+    
 
-<owl:Ontology rdf:about="http://www.aiu.kz/hsite/society">
-  <rdfs:comment>Онтология родственных отношений</rdfs:comment>
-</owl:Ontology>
 
-<owl:ObjectProperty rdf:about="#Related">
-  <rdfs:subPropertyOf rdf:resource="http://www.w3.org/2002/07/owl#topObjectProperty"/>
-  <rdfs:domain rdf:resource="#Human"/>
-  <rdfs:range rdf:resource="#Human"/>
-  <rdfs:label>связан</rdfs:label>
-</owl:ObjectProperty>
+    <!-- 
+    ///////////////////////////////////////////////////////////////////////////////////////
+    //
+    // Object Properties
+    //
+    ///////////////////////////////////////////////////////////////////////////////////////
+     -->
 
-<owl:ObjectProperty rdf:about="#consists">
-  <owl:inverseOf rdf:resource="#located"/>
-  <rdfs:domain rdf:resource="#Area"/>
-  <rdfs:range rdf:resource="#object"/>
-  <owl:propertyChainAxiom>
-    <rdf:Description>
-      <rdf:first rdf:resource="#includes"/>
-      <rdf:rest>
-        <rdf:Description>
-          <rdf:first rdf:resource="#consists"/>
-          <rdf:rest rdf:resource="http://www.w3.org/1999/02/22-rdf-syntax-ns#nil"/>
-        </rdf:Description>
-      </rdf:rest>
-    </rdf:Description>
-  </owl:propertyChainAxiom>
-</owl:ObjectProperty>
+    
 
-<owl:ObjectProperty rdf:about="#located">
-  <rdfs:domain rdf:resource="#object"/>
-  <rdfs:range rdf:resource="#Area"/>
-  <owl:propertyChainAxiom>
-    <rdf:Description>
-      <rdf:first rdf:resource="#located"/>
-      <rdf:rest>
-        <rdf:Description>
-          <rdf:first rdf:resource="#isPart"/>
-          <rdf:rest rdf:resource="http://www.w3.org/1999/02/22-rdf-syntax-ns#nil"/>
-        </rdf:Description>
-      </rdf:rest>
-    </rdf:Description>
-  </owl:propertyChainAxiom>
-</owl:ObjectProperty>
 
-<owl:ObjectProperty rdf:about="#includes">
-  <owl:inverseOf rdf:resource="#isPart"/>
-  <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#TransitiveProperty"/>
-  <rdfs:domain rdf:resource="#Area"/>
-  <rdfs:range rdf:resource="#Area"/>
-</owl:ObjectProperty>
+    <!-- http://www.aiu.kz/ontology/society#Related -->
 
-<owl:ObjectProperty rdf:about="#isPart">
-  <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#TransitiveProperty"/>
-  <rdfs:domain rdf:resource="#Area"/>
-  <rdfs:range rdf:resource="#Area"/>
-</owl:ObjectProperty>
+    <owl:ObjectProperty rdf:about="http://www.aiu.kz/ontology/society#Related">
+        <rdfs:subPropertyOf rdf:resource="http://www.w3.org/2002/07/owl#topObjectProperty"/>
+        <rdfs:domain rdf:resource="http://www.aiu.kz/ontology/society#Human"/>
+        <rdfs:range rdf:resource="http://www.aiu.kz/ontology/society#Human"/>
+        <rdfs:label>связан</rdfs:label>
+    </owl:ObjectProperty>
+    
 
-<owl:ObjectProperty rdf:about="#hasAncestor">
-  <rdfs:subPropertyOf rdf:resource="#Related"/>
-  <owl:inverseOf rdf:resource="#isAncestor"/>
-  <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#TransitiveProperty"/>
-  <rdfs:domain rdf:resource="#Human"/>
-  <rdfs:range rdf:resource="#Human"/>
-  <rdfs:label>имеетПредка</rdfs:label>
-</owl:ObjectProperty>
 
-<owl:ObjectProperty rdf:about="#isAncestor">
-  <rdfs:subPropertyOf rdf:resource="#Related"/>
-  <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#TransitiveProperty"/>
-  <rdfs:domain rdf:resource="#Human"/>
-  <rdfs:range rdf:resource="#Human"/>
-  <rdfs:label>являетсяПредком</rdfs:label>
-</owl:ObjectProperty>
+    <!-- http://www.aiu.kz/ontology/society#consists -->
 
-<owl:ObjectProperty rdf:about="#hasChild">
-  <owl:equivalentProperty rdf:resource="#isParent"/>
-  <rdfs:subPropertyOf rdf:resource="#hasDescendant"/>
-  <owl:inverseOf rdf:resource="#isChild"/>
-  <rdfs:label>имеетРебенка</rdfs:label>
-</owl:ObjectProperty>
+    <owl:ObjectProperty rdf:about="http://www.aiu.kz/ontology/society#consists">
+        <owl:inverseOf rdf:resource="http://www.aiu.kz/ontology/society#located"/>
+        <rdfs:domain rdf:resource="http://www.aiu.kz/ontology/society#Area"/>
+        <rdfs:range rdf:resource="http://www.aiu.kz/ontology/society#object"/>
+        <owl:propertyChainAxiom rdf:parseType="Collection">
+            <rdf:Description rdf:about="http://www.aiu.kz/ontology/society#includes"/>
+            <rdf:Description rdf:about="http://www.aiu.kz/ontology/society#consists"/>
+        </owl:propertyChainAxiom>
+    </owl:ObjectProperty>
+    
 
-<owl:ObjectProperty rdf:about="#isParent">
-  <rdfs:subPropertyOf rdf:resource="#isAncestor"/>
-  <rdfs:label>являетсяРодителем</rdfs:label>
-</owl:ObjectProperty>
 
-<owl:ObjectProperty rdf:about="#hasDescendant">
-  <rdfs:subPropertyOf rdf:resource="#Related"/>
-  <owl:inverseOf rdf:resource="#isDescendant"/>
-  <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#TransitiveProperty"/>
-  <rdfs:domain rdf:resource="#Human"/>
-  <rdfs:range rdf:resource="#Human"/>
-  <rdfs:label>имеетПотомка</rdfs:label>
-</owl:ObjectProperty>
+    <!-- http://www.aiu.kz/ontology/society#hasAncestor -->
 
-<owl:ObjectProperty rdf:about="#isChild">
-  <rdfs:subPropertyOf rdf:resource="#isDescendant"/>
-  <rdfs:label>являетсяРебенком</rdfs:label>
-</owl:ObjectProperty>
+    <owl:ObjectProperty rdf:about="http://www.aiu.kz/ontology/society#hasAncestor">
+        <rdfs:subPropertyOf rdf:resource="http://www.aiu.kz/ontology/society#Related"/>
+        <owl:inverseOf rdf:resource="http://www.aiu.kz/ontology/society#isAncestor"/>
+        <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#TransitiveProperty"/>
+        <rdfs:domain rdf:resource="http://www.aiu.kz/ontology/society#Human"/>
+        <rdfs:range rdf:resource="http://www.aiu.kz/ontology/society#Human"/>
+        <rdfs:label>имеетПредка</rdfs:label>
+    </owl:ObjectProperty>
+    
 
-<owl:ObjectProperty rdf:about="#isDescendant">
-  <rdfs:subPropertyOf rdf:resource="#Related"/>
-  <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#TransitiveProperty"/>
-  <rdfs:domain rdf:resource="#Human"/>
-  <rdfs:range rdf:resource="#Human"/>
-  <rdfs:label>являетсяПотомком</rdfs:label>
-</owl:ObjectProperty>
 
-<owl:ObjectProperty rdf:about="#hasHabitant">
-  <owl:inverseOf rdf:resource="#liveIn"/>
-  <rdfs:domain rdf:resource="#Area"/>
-  <rdfs:range rdf:resource="#Human"/>
-</owl:ObjectProperty>
+    <!-- http://www.aiu.kz/ontology/society#hasBorder -->
 
-<owl:ObjectProperty rdf:about="#liveIn">
-  <rdfs:domain rdf:resource="#Human"/>
-  <rdfs:range rdf:resource="#Area"/>
-</owl:ObjectProperty>
+    <owl:ObjectProperty rdf:about="http://www.aiu.kz/ontology/society#hasBorder">
+        <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#SymmetricProperty"/>
+        <rdfs:domain rdf:resource="http://www.aiu.kz/ontology/society#Area"/>
+        <rdfs:range rdf:resource="http://www.aiu.kz/ontology/society#Area"/>
+    </owl:ObjectProperty>
+    
 
-<owl:ObjectProperty rdf:about="#hasParent">
-  <owl:equivalentProperty rdf:resource="#isChild"/>
-  <rdfs:subPropertyOf rdf:resource="#hasAncestor"/>
-  <owl:inverseOf rdf:resource="#isParent"/>
-  <rdfs:label>имеетРодителя</rdfs:label>
-</owl:ObjectProperty>
 
-<owl:ObjectProperty rdf:about="#isFather">
-  <rdfs:subPropertyOf rdf:resource="#isParent"/>
-  <rdfs:domain rdf:resource="#Human"/>
-  <rdfs:range rdf:resource="#Human"/>
-  <rdfs:label>являетсяОтцом</rdfs:label>
-</owl:ObjectProperty>
+    <!-- http://www.aiu.kz/ontology/society#hasChild -->
 
-<owl:ObjectProperty rdf:about="#isGrandChild">
-  <rdfs:subPropertyOf rdf:resource="#isDescendant"/>
-  <owl:inverseOf rdf:resource="#isGrandParents"/>
-  <rdfs:label>являетсяВнукомВнучкой</rdfs:label>
-</owl:ObjectProperty>
+    <owl:ObjectProperty rdf:about="http://www.aiu.kz/ontology/society#hasChild">
+        <owl:equivalentProperty rdf:resource="http://www.aiu.kz/ontology/society#isParent"/>
+        <rdfs:subPropertyOf rdf:resource="http://www.aiu.kz/ontology/society#hasDescendant"/>
+        <owl:inverseOf rdf:resource="http://www.aiu.kz/ontology/society#isChild"/>
+        <rdfs:label>имеетРебенка</rdfs:label>
+    </owl:ObjectProperty>
+    
 
-<owl:ObjectProperty rdf:about="#isGrandParents">
-  <rdfs:subPropertyOf rdf:resource="#isAncestor"/>
-  <rdfs:domain rdf:resource="#Human"/>
-  <rdfs:range rdf:resource="#Human"/>
-  <owl:propertyChainAxiom>
-    <rdf:Description>
-      <rdf:first rdf:resource="#isParent"/>
-      <rdf:rest>
-        <rdf:Description>
-          <rdf:first rdf:resource="#isParent"/>
-          <rdf:rest rdf:resource="http://www.w3.org/1999/02/22-rdf-syntax-ns#nil"/>
-        </rdf:Description>
-      </rdf:rest>
-    </rdf:Description>
-  </owl:propertyChainAxiom>
-  <rdfs:label>являетсяБабушкойДедушкой</rdfs:label>
-</owl:ObjectProperty>
 
-<owl:ObjectProperty rdf:about="#isSibling">
-  <rdfs:subPropertyOf rdf:resource="#Related"/>
-  <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#SymmetricProperty"/>
-  <rdfs:domain rdf:resource="#Human"/>
-  <rdfs:range rdf:resource="#Human"/>
-  <owl:propertyChainAxiom>
-    <rdf:Description>
-      <rdf:first rdf:resource="#hasParent"/>
-      <rdf:rest>
-        <rdf:Description>
-          <rdf:first rdf:resource="#isParent"/>
-          <rdf:rest rdf:resource="http://www.w3.org/1999/02/22-rdf-syntax-ns#nil"/>
-        </rdf:Description>
-      </rdf:rest>
-    </rdf:Description>
-  </owl:propertyChainAxiom>
-  <rdfs:label>являетсяБратомСестрой</rdfs:label>
-</owl:ObjectProperty>
+    <!-- http://www.aiu.kz/ontology/society#hasDescendant -->
 
-<owl:DatatypeProperty rdf:about="#Age">
-  <rdfs:domain rdf:resource="#Human"/>
-  <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#integer"/>
-  <rdfs:label>Возраст</rdfs:label>
-</owl:DatatypeProperty>
+    <owl:ObjectProperty rdf:about="http://www.aiu.kz/ontology/society#hasDescendant">
+        <rdfs:subPropertyOf rdf:resource="http://www.aiu.kz/ontology/society#Related"/>
+        <owl:inverseOf rdf:resource="http://www.aiu.kz/ontology/society#isDescendant"/>
+        <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#TransitiveProperty"/>
+        <rdfs:domain rdf:resource="http://www.aiu.kz/ontology/society#Human"/>
+        <rdfs:range rdf:resource="http://www.aiu.kz/ontology/society#Human"/>
+        <rdfs:label>имеетПотомка</rdfs:label>
+    </owl:ObjectProperty>
+    
 
-<owl:DatatypeProperty rdf:about="#PlaceOfBirth">
-  <rdfs:domain rdf:resource="#Human"/>
-  <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
-  <rdfs:label>МестоРождения</rdfs:label>
-</owl:DatatypeProperty>
 
-<owl:DatatypeProperty rdf:about="#population">
-  <rdfs:domain rdf:resource="#settlement"/>
-  <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#int"/>
-  <rdfs:label>население</rdfs:label>
-</owl:DatatypeProperty>
+    <!-- http://www.aiu.kz/ontology/society#hasHabitant -->
 
-<owl:DatatypeProperty rdf:about="#square">
-  <rdfs:domain rdf:resource="#Area"/>
-  <rdfs:range rdf:resource="http://www.w3.org/2002/07/owl#real"/>
-  <rdfs:label>Площадь</rdfs:label>
-</owl:DatatypeProperty>
+    <owl:ObjectProperty rdf:about="http://www.aiu.kz/ontology/society#hasHabitant">
+        <owl:inverseOf rdf:resource="http://www.aiu.kz/ontology/society#liveIn"/>
+        <rdfs:domain rdf:resource="http://www.aiu.kz/ontology/society#Area"/>
+        <rdfs:range rdf:resource="http://www.aiu.kz/ontology/society#Human"/>
+    </owl:ObjectProperty>
+    
 
-<owl:Class rdf:about="#Human">
-  <rdfs:label>Человек</rdfs:label>
-</owl:Class>
 
-<owl:Class rdf:about="#Area"/>
+    <!-- http://www.aiu.kz/ontology/society#hasParent -->
 
-<owl:Class rdf:about="#object">
-  <rdfs:label>Объект</rdfs:label>
-</owl:Class>
+    <owl:ObjectProperty rdf:about="http://www.aiu.kz/ontology/society#hasParent">
+        <owl:equivalentProperty rdf:resource="http://www.aiu.kz/ontology/society#isChild"/>
+        <rdfs:subPropertyOf rdf:resource="http://www.aiu.kz/ontology/society#hasAncestor"/>
+        <owl:inverseOf rdf:resource="http://www.aiu.kz/ontology/society#isParent"/>
+        <rdfs:label>имеетРодителя</rdfs:label>
+    </owl:ObjectProperty>
+    
 
-<owl:Class rdf:about="#settlement">
-  <rdfs:subClassOf rdf:resource="#Area"/>
-  <rdfs:label>Населенный пункт</rdfs:label>
-</owl:Class>
 
-<owl:Class rdf:about="#Child">
-  <owl:equivalentClass>
-    <owl:Restriction>
-      <owl:onProperty rdf:resource="#hasParent"/>
-      <owl:someValuesFrom rdf:resource="#Human"/>
-    </owl:Restriction>
-  </owl:equivalentClass>
-  <rdfs:subClassOf rdf:resource="#Human"/>
-  <rdfs:label>Ребенок</rdfs:label>
-</owl:Class>
+    <!-- http://www.aiu.kz/ontology/society#includes -->
 
-<owl:Class rdf:about="#City">
-  <rdfs:subClassOf rdf:resource="#settlement"/>
-  <rdfs:label>Город (городской округ)</rdfs:label>
-</owl:Class>
+    <owl:ObjectProperty rdf:about="http://www.aiu.kz/ontology/society#includes">
+        <owl:inverseOf rdf:resource="http://www.aiu.kz/ontology/society#isPart"/>
+        <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#TransitiveProperty"/>
+        <rdfs:domain rdf:resource="http://www.aiu.kz/ontology/society#Area"/>
+        <rdfs:range rdf:resource="http://www.aiu.kz/ontology/society#Area"/>
+    </owl:ObjectProperty>
+    
 
-<owl:Class rdf:about="#Country">
-  <rdfs:subClassOf rdf:resource="#Area"/>
-  <rdfs:label>Страна</rdfs:label>
-</owl:Class>
 
-<owl:Class rdf:about="#Daughter">
-  <owl:equivalentClass>
-    <owl:Class>
-      <owl:intersectionOf rdf:parseType="Collection">
-        <rdf:Description rdf:about="#Woman"/>
-        <owl:Restriction>
-          <owl:onProperty rdf:resource="#hasParent"/>
-          <owl:someValuesFrom rdf:resource="#Human"/>
-        </owl:Restriction>
-      </owl:intersectionOf>
+    <!-- http://www.aiu.kz/ontology/society#isAncestor -->
+
+    <owl:ObjectProperty rdf:about="http://www.aiu.kz/ontology/society#isAncestor">
+        <rdfs:subPropertyOf rdf:resource="http://www.aiu.kz/ontology/society#Related"/>
+        <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#TransitiveProperty"/>
+        <rdfs:domain rdf:resource="http://www.aiu.kz/ontology/society#Human"/>
+        <rdfs:range rdf:resource="http://www.aiu.kz/ontology/society#Human"/>
+        <rdfs:label>являетсяПредком</rdfs:label>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.aiu.kz/ontology/society#isChild -->
+
+    <owl:ObjectProperty rdf:about="http://www.aiu.kz/ontology/society#isChild">
+        <rdfs:subPropertyOf rdf:resource="http://www.aiu.kz/ontology/society#isDescendant"/>
+        <rdfs:label>являетсяРебенком</rdfs:label>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.aiu.kz/ontology/society#isDescendant -->
+
+    <owl:ObjectProperty rdf:about="http://www.aiu.kz/ontology/society#isDescendant">
+        <rdfs:subPropertyOf rdf:resource="http://www.aiu.kz/ontology/society#Related"/>
+        <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#TransitiveProperty"/>
+        <rdfs:domain rdf:resource="http://www.aiu.kz/ontology/society#Human"/>
+        <rdfs:range rdf:resource="http://www.aiu.kz/ontology/society#Human"/>
+        <rdfs:label>являетсяПотомком</rdfs:label>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.aiu.kz/ontology/society#isFather -->
+
+    <owl:ObjectProperty rdf:about="http://www.aiu.kz/ontology/society#isFather">
+        <rdfs:subPropertyOf rdf:resource="http://www.aiu.kz/ontology/society#isParent"/>
+        <rdfs:domain rdf:resource="http://www.aiu.kz/ontology/society#Human"/>
+        <rdfs:range rdf:resource="http://www.aiu.kz/ontology/society#Human"/>
+        <rdfs:label>являетсяОтцом</rdfs:label>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.aiu.kz/ontology/society#isGrandChild -->
+
+    <owl:ObjectProperty rdf:about="http://www.aiu.kz/ontology/society#isGrandChild">
+        <rdfs:subPropertyOf rdf:resource="http://www.aiu.kz/ontology/society#isDescendant"/>
+        <owl:inverseOf rdf:resource="http://www.aiu.kz/ontology/society#isGrandParents"/>
+        <rdfs:label>являетсяВнукомВнучкой</rdfs:label>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.aiu.kz/ontology/society#isGrandParents -->
+
+    <owl:ObjectProperty rdf:about="http://www.aiu.kz/ontology/society#isGrandParents">
+        <rdfs:subPropertyOf rdf:resource="http://www.aiu.kz/ontology/society#isAncestor"/>
+        <rdfs:domain rdf:resource="http://www.aiu.kz/ontology/society#Human"/>
+        <rdfs:range rdf:resource="http://www.aiu.kz/ontology/society#Human"/>
+        <owl:propertyChainAxiom rdf:parseType="Collection">
+            <rdf:Description rdf:about="http://www.aiu.kz/ontology/society#isParent"/>
+            <rdf:Description rdf:about="http://www.aiu.kz/ontology/society#isParent"/>
+        </owl:propertyChainAxiom>
+        <rdfs:label>являетсяБабушкойДедушкой</rdfs:label>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.aiu.kz/ontology/society#isParent -->
+
+    <owl:ObjectProperty rdf:about="http://www.aiu.kz/ontology/society#isParent">
+        <rdfs:subPropertyOf rdf:resource="http://www.aiu.kz/ontology/society#isAncestor"/>
+        <rdfs:label>являетсяРодителем</rdfs:label>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.aiu.kz/ontology/society#isPart -->
+
+    <owl:ObjectProperty rdf:about="http://www.aiu.kz/ontology/society#isPart">
+        <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#TransitiveProperty"/>
+        <rdfs:domain rdf:resource="http://www.aiu.kz/ontology/society#Area"/>
+        <rdfs:range rdf:resource="http://www.aiu.kz/ontology/society#Area"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.aiu.kz/ontology/society#isSibling -->
+
+    <owl:ObjectProperty rdf:about="http://www.aiu.kz/ontology/society#isSibling">
+        <rdfs:subPropertyOf rdf:resource="http://www.aiu.kz/ontology/society#Related"/>
+        <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#SymmetricProperty"/>
+        <rdfs:domain rdf:resource="http://www.aiu.kz/ontology/society#Human"/>
+        <rdfs:range rdf:resource="http://www.aiu.kz/ontology/society#Human"/>
+        <owl:propertyChainAxiom rdf:parseType="Collection">
+            <rdf:Description rdf:about="http://www.aiu.kz/ontology/society#hasParent"/>
+            <rdf:Description rdf:about="http://www.aiu.kz/ontology/society#isParent"/>
+        </owl:propertyChainAxiom>
+        <rdfs:label>являетсяБратомСестрой</rdfs:label>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.aiu.kz/ontology/society#liveIn -->
+
+    <owl:ObjectProperty rdf:about="http://www.aiu.kz/ontology/society#liveIn">
+        <rdfs:domain rdf:resource="http://www.aiu.kz/ontology/society#Human"/>
+        <rdfs:range rdf:resource="http://www.aiu.kz/ontology/society#Area"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.aiu.kz/ontology/society#located -->
+
+    <owl:ObjectProperty rdf:about="http://www.aiu.kz/ontology/society#located">
+        <rdfs:domain rdf:resource="http://www.aiu.kz/ontology/society#object"/>
+        <rdfs:range rdf:resource="http://www.aiu.kz/ontology/society#Area"/>
+        <owl:propertyChainAxiom rdf:parseType="Collection">
+            <rdf:Description rdf:about="http://www.aiu.kz/ontology/society#located"/>
+            <rdf:Description rdf:about="http://www.aiu.kz/ontology/society#isPart"/>
+        </owl:propertyChainAxiom>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- 
+    ///////////////////////////////////////////////////////////////////////////////////////
+    //
+    // Data properties
+    //
+    ///////////////////////////////////////////////////////////////////////////////////////
+     -->
+
+    
+
+
+    <!-- http://www.aiu.kz/ontology/society#Age -->
+
+    <owl:DatatypeProperty rdf:about="http://www.aiu.kz/ontology/society#Age">
+        <rdfs:domain rdf:resource="http://www.aiu.kz/ontology/society#Human"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#integer"/>
+        <rdfs:label>Возраст</rdfs:label>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://www.aiu.kz/ontology/society#PlaceOfBirth -->
+
+    <owl:DatatypeProperty rdf:about="http://www.aiu.kz/ontology/society#PlaceOfBirth">
+        <rdfs:domain rdf:resource="http://www.aiu.kz/ontology/society#Human"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+        <rdfs:label>МестоРождения</rdfs:label>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://www.aiu.kz/ontology/society#population -->
+
+    <owl:DatatypeProperty rdf:about="http://www.aiu.kz/ontology/society#population">
+        <rdfs:domain rdf:resource="http://www.aiu.kz/ontology/society#settlement"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#int"/>
+        <rdfs:label>население</rdfs:label>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://www.aiu.kz/ontology/society#square -->
+
+    <owl:DatatypeProperty rdf:about="http://www.aiu.kz/ontology/society#square">
+        <rdfs:domain rdf:resource="http://www.aiu.kz/ontology/society#Area"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2002/07/owl#real"/>
+        <rdfs:label>Площадь</rdfs:label>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- 
+    ///////////////////////////////////////////////////////////////////////////////////////
+    //
+    // Classes
+    //
+    ///////////////////////////////////////////////////////////////////////////////////////
+     -->
+
+    
+
+
+    <!-- http://www.aiu.kz/ontology/society#Area -->
+
+    <owl:Class rdf:about="http://www.aiu.kz/ontology/society#Area"/>
+    
+
+
+    <!-- http://www.aiu.kz/ontology/society#Child -->
+
+    <owl:Class rdf:about="http://www.aiu.kz/ontology/society#Child">
+        <owl:equivalentClass>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="http://www.aiu.kz/ontology/society#hasParent"/>
+                <owl:someValuesFrom rdf:resource="http://www.aiu.kz/ontology/society#Human"/>
+            </owl:Restriction>
+        </owl:equivalentClass>
+        <rdfs:subClassOf rdf:resource="http://www.aiu.kz/ontology/society#Human"/>
+        <rdfs:label>Ребенок</rdfs:label>
     </owl:Class>
-  </owl:equivalentClass>
-  <rdfs:subClassOf rdf:resource="#Child"/>
-  <rdfs:subClassOf rdf:resource="#Woman"/>
-  <rdfs:label>Дочь</rdfs:label>
-</owl:Class>
+    
 
-<owl:Class rdf:about="#Woman">
-  <rdfs:subClassOf rdf:resource="#Human"/>
-  <rdfs:label>Женщина</rdfs:label>
-</owl:Class>
 
-<owl:Class rdf:about="#Father">
-  <owl:equivalentClass>
-    <owl:Class>
-      <owl:intersectionOf rdf:parseType="Collection">
-        <rdf:Description rdf:about="#Man"/>
-        <owl:Restriction>
-          <owl:onProperty rdf:resource="#hasChild"/>
-          <owl:someValuesFrom rdf:resource="#Human"/>
-        </owl:Restriction>
-      </owl:intersectionOf>
+    <!-- http://www.aiu.kz/ontology/society#City -->
+
+    <owl:Class rdf:about="http://www.aiu.kz/ontology/society#City">
+        <rdfs:subClassOf rdf:resource="http://www.aiu.kz/ontology/society#settlement"/>
+        <rdfs:label>Город (городской округ)</rdfs:label>
     </owl:Class>
-  </owl:equivalentClass>
-  <rdfs:subClassOf rdf:resource="#Man"/>
-  <rdfs:subClassOf rdf:resource="#Parent"/>
-  <rdfs:label>Отец</rdfs:label>
-</owl:Class>
+    
 
-<owl:Class rdf:about="#Man">
-  <rdfs:subClassOf rdf:resource="#Human"/>
-  <rdfs:label>Мужчина</rdfs:label>
-</owl:Class>
 
-<owl:Class rdf:about="#Parent">
-  <owl:equivalentClass>
-    <owl:Restriction>
-      <owl:onProperty rdf:resource="#hasChild"/>
-      <owl:someValuesFrom rdf:resource="#Human"/>
-    </owl:Restriction>
-  </owl:equivalentClass>
-  <rdfs:subClassOf rdf:resource="#Human"/>
-  <rdfs:label>Родитель</rdfs:label>
-</owl:Class>
+    <!-- http://www.aiu.kz/ontology/society#Country -->
 
-<owl:Class rdf:about="#GrandDaughter">
-  <owl:equivalentClass>
-    <owl:Class>
-      <owl:intersectionOf rdf:parseType="Collection">
-        <rdf:Description rdf:about="#Woman"/>
-        <owl:Restriction>
-          <owl:onProperty rdf:resource="#isGrandChild"/>
-          <owl:someValuesFrom rdf:resource="#Human"/>
-        </owl:Restriction>
-      </owl:intersectionOf>
+    <owl:Class rdf:about="http://www.aiu.kz/ontology/society#Country">
+        <rdfs:subClassOf rdf:resource="http://www.aiu.kz/ontology/society#Area"/>
+        <rdfs:label>Страна</rdfs:label>
     </owl:Class>
-  </owl:equivalentClass>
-  <rdfs:subClassOf rdf:resource="#Woman"/>
-  <rdfs:label>Внучка</rdfs:label>
-</owl:Class>
+    
 
-<owl:Class rdf:about="#GrandFather">
-  <owl:equivalentClass>
-    <owl:Class>
-      <owl:intersectionOf rdf:parseType="Collection">
-        <rdf:Description rdf:about="#Man"/>
-        <owl:Restriction>
-          <owl:onProperty rdf:resource="#isGrandParents"/>
-          <owl:someValuesFrom rdf:resource="#Human"/>
-        </owl:Restriction>
-      </owl:intersectionOf>
+
+    <!-- http://www.aiu.kz/ontology/society#Daughter -->
+
+    <owl:Class rdf:about="http://www.aiu.kz/ontology/society#Daughter">
+        <owl:equivalentClass>
+            <owl:Class>
+                <owl:intersectionOf rdf:parseType="Collection">
+                    <rdf:Description rdf:about="http://www.aiu.kz/ontology/society#Woman"/>
+                    <owl:Restriction>
+                        <owl:onProperty rdf:resource="http://www.aiu.kz/ontology/society#hasParent"/>
+                        <owl:someValuesFrom rdf:resource="http://www.aiu.kz/ontology/society#Human"/>
+                    </owl:Restriction>
+                </owl:intersectionOf>
+            </owl:Class>
+        </owl:equivalentClass>
+        <rdfs:subClassOf rdf:resource="http://www.aiu.kz/ontology/society#Child"/>
+        <rdfs:subClassOf rdf:resource="http://www.aiu.kz/ontology/society#Woman"/>
+        <rdfs:label>Дочь</rdfs:label>
     </owl:Class>
-  </owl:equivalentClass>
-  <rdfs:subClassOf rdf:resource="#Man"/>
-  <rdfs:label>Дедушка</rdfs:label>
-</owl:Class>
+    
 
-<owl:Class rdf:about="#GrandMother">
-  <owl:equivalentClass>
-    <owl:Class>
-      <owl:intersectionOf rdf:parseType="Collection">
-        <rdf:Description rdf:about="#Woman"/>
-        <owl:Restriction>
-          <owl:onProperty rdf:resource="#isGrandParents"/>
-          <owl:someValuesFrom rdf:resource="#Human"/>
-        </owl:Restriction>
-      </owl:intersectionOf>
+
+    <!-- http://www.aiu.kz/ontology/society#Father -->
+
+    <owl:Class rdf:about="http://www.aiu.kz/ontology/society#Father">
+        <owl:equivalentClass>
+            <owl:Class>
+                <owl:intersectionOf rdf:parseType="Collection">
+                    <rdf:Description rdf:about="http://www.aiu.kz/ontology/society#Man"/>
+                    <owl:Restriction>
+                        <owl:onProperty rdf:resource="http://www.aiu.kz/ontology/society#hasChild"/>
+                        <owl:someValuesFrom rdf:resource="http://www.aiu.kz/ontology/society#Human"/>
+                    </owl:Restriction>
+                </owl:intersectionOf>
+            </owl:Class>
+        </owl:equivalentClass>
+        <rdfs:subClassOf rdf:resource="http://www.aiu.kz/ontology/society#Man"/>
+        <rdfs:subClassOf rdf:resource="http://www.aiu.kz/ontology/society#Parent"/>
+        <rdfs:label>Отец</rdfs:label>
     </owl:Class>
-  </owl:equivalentClass>
-  <rdfs:subClassOf rdf:resource="#Woman"/>
-  <rdfs:label>Бабушка</rdfs:label>
-</owl:Class>
+    
 
-<owl:Class rdf:about="#GrandSon">
-  <owl:equivalentClass>
-    <owl:Class>
-      <owl:intersectionOf rdf:parseType="Collection">
-        <rdf:Description rdf:about="#Man"/>
-        <owl:Restriction>
-          <owl:onProperty rdf:resource="#isGrandChild"/>
-          <owl:someValuesFrom rdf:resource="#Human"/>
-        </owl:Restriction>
-      </owl:intersectionOf>
+
+    <!-- http://www.aiu.kz/ontology/society#GrandDaughter -->
+
+    <owl:Class rdf:about="http://www.aiu.kz/ontology/society#GrandDaughter">
+        <owl:equivalentClass>
+            <owl:Class>
+                <owl:intersectionOf rdf:parseType="Collection">
+                    <rdf:Description rdf:about="http://www.aiu.kz/ontology/society#Woman"/>
+                    <owl:Restriction>
+                        <owl:onProperty rdf:resource="http://www.aiu.kz/ontology/society#isGrandChild"/>
+                        <owl:someValuesFrom rdf:resource="http://www.aiu.kz/ontology/society#Human"/>
+                    </owl:Restriction>
+                </owl:intersectionOf>
+            </owl:Class>
+        </owl:equivalentClass>
+        <rdfs:subClassOf rdf:resource="http://www.aiu.kz/ontology/society#Woman"/>
+        <rdfs:label>Внучка</rdfs:label>
     </owl:Class>
-  </owl:equivalentClass>
-  <rdfs:subClassOf rdf:resource="#Man"/>
-  <rdfs:label>Внук</rdfs:label>
-</owl:Class>
+    
 
-<owl:Class rdf:about="#Lake">
-  <rdfs:subClassOf rdf:resource="#object"/>
-  <rdfs:label>Озеро</rdfs:label>
-</owl:Class>
 
-<owl:Class rdf:about="#Mother">
-  <owl:equivalentClass>
-    <owl:Class>
-      <owl:intersectionOf rdf:parseType="Collection">
-        <rdf:Description rdf:about="#Woman"/>
-        <owl:Restriction>
-          <owl:onProperty rdf:resource="#hasChild"/>
-          <owl:someValuesFrom rdf:resource="#Human"/>
-        </owl:Restriction>
-      </owl:intersectionOf>
+    <!-- http://www.aiu.kz/ontology/society#GrandFather -->
+
+    <owl:Class rdf:about="http://www.aiu.kz/ontology/society#GrandFather">
+        <owl:equivalentClass>
+            <owl:Class>
+                <owl:intersectionOf rdf:parseType="Collection">
+                    <rdf:Description rdf:about="http://www.aiu.kz/ontology/society#Man"/>
+                    <owl:Restriction>
+                        <owl:onProperty rdf:resource="http://www.aiu.kz/ontology/society#isGrandParents"/>
+                        <owl:someValuesFrom rdf:resource="http://www.aiu.kz/ontology/society#Human"/>
+                    </owl:Restriction>
+                </owl:intersectionOf>
+            </owl:Class>
+        </owl:equivalentClass>
+        <rdfs:subClassOf rdf:resource="http://www.aiu.kz/ontology/society#Man"/>
+        <rdfs:label>Дедушка</rdfs:label>
     </owl:Class>
-  </owl:equivalentClass>
-  <rdfs:subClassOf rdf:resource="#Parent"/>
-  <rdfs:subClassOf rdf:resource="#Woman"/>
-  <rdfs:label>Мать</rdfs:label>
-</owl:Class>
+    
 
-<owl:Class rdf:about="#Mountain">
-  <rdfs:subClassOf rdf:resource="#object"/>
-  <rdfs:label>Горы</rdfs:label>
-</owl:Class>
 
-<owl:Class rdf:about="#River">
-  <rdfs:subClassOf rdf:resource="#object"/>
-  <rdfs:label>Река</rdfs:label>
-</owl:Class>
+    <!-- http://www.aiu.kz/ontology/society#GrandMother -->
 
-<owl:Class rdf:about="#Son">
-  <owl:equivalentClass>
-    <owl:Class>
-      <owl:intersectionOf rdf:parseType="Collection">
-        <rdf:Description rdf:about="#Man"/>
-        <owl:Restriction>
-          <owl:onProperty rdf:resource="#hasParent"/>
-          <owl:someValuesFrom rdf:resource="#Human"/>
-        </owl:Restriction>
-      </owl:intersectionOf>
+    <owl:Class rdf:about="http://www.aiu.kz/ontology/society#GrandMother">
+        <owl:equivalentClass>
+            <owl:Class>
+                <owl:intersectionOf rdf:parseType="Collection">
+                    <rdf:Description rdf:about="http://www.aiu.kz/ontology/society#Woman"/>
+                    <owl:Restriction>
+                        <owl:onProperty rdf:resource="http://www.aiu.kz/ontology/society#isGrandParents"/>
+                        <owl:someValuesFrom rdf:resource="http://www.aiu.kz/ontology/society#Human"/>
+                    </owl:Restriction>
+                </owl:intersectionOf>
+            </owl:Class>
+        </owl:equivalentClass>
+        <rdfs:subClassOf rdf:resource="http://www.aiu.kz/ontology/society#Woman"/>
+        <rdfs:label>Бабушка</rdfs:label>
     </owl:Class>
-  </owl:equivalentClass>
-  <rdfs:subClassOf rdf:resource="#Child"/>
-  <rdfs:subClassOf rdf:resource="#Man"/>
-  <rdfs:label>Сын</rdfs:label>
-</owl:Class>
-
-<owl:Class rdf:about="#inhabitant">
-  <rdfs:subClassOf rdf:resource="#Human"/>
-  <rdfs:label>Житель</rdfs:label>
-</owl:Class>
-
-<owl:Class rdf:about="#region">
-  <rdfs:subClassOf rdf:resource="#Area"/>
-  <rdfs:label>Регион (область)</rdfs:label>
-</owl:Class>
-
-<owl:Class rdf:about="#township">
-  <rdfs:subClassOf rdf:resource="#settlement"/>
-  <rdfs:label>Поселок</rdfs:label>
-</owl:Class>
-
-<owl:NamedIndividual rdf:about="#Akmola_Region">
-  <rdf:type rdf:resource="#region"/>
-  <isPart rdf:resource="#Kazakhstan"/>
-</owl:NamedIndividual>
-
-<owl:NamedIndividual rdf:about="#Kazakhstan">
-  <rdf:type rdf:resource="#Country"/>
-  <rdf:type rdf:resource="#settlement"/>
-</owl:NamedIndividual>
-
-<owl:NamedIndividual rdf:about="#Almaty">
-  <rdf:type rdf:resource="#City"/>
-  <isPart rdf:resource="#Almatyn_Region"/>
-</owl:NamedIndividual>
-
-<owl:NamedIndividual rdf:about="#Almatyn_Region">
-  <rdf:type rdf:resource="#region"/>
-  <isPart rdf:resource="#Kazakhstan"/>
-</owl:NamedIndividual>
-
-<owl:NamedIndividual rdf:about="#Almaty_Region">
-  <rdf:type rdf:resource="#Area"/>
-  <rdfs:label>Страна</rdfs:label>
-</owl:NamedIndividual>
-
-<owl:NamedIndividual rdf:about="#Altai">
-  <rdf:type rdf:resource="#Area"/>
-  <isPart rdf:resource="#East-Kazakhstan_Region"/>
-</owl:NamedIndividual>
-
-<owl:NamedIndividual rdf:about="#East-Kazakhstan_Region">
-  <rdf:type rdf:resource="#region"/>
-  <isPart rdf:resource="#Kazakhstan"/>
-</owl:NamedIndividual>
-
-<owl:NamedIndividual rdf:about="#Anna">
-  <rdf:type rdf:resource="#Woman"/>
-  <hasParent rdf:resource="#Elena"/>
-  <hasParent rdf:resource="#Sergey"/>
-  <Age rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">50</Age>
-  <PlaceOfBirth>Астана</PlaceOfBirth>
-</owl:NamedIndividual>
-
-<owl:NamedIndividual rdf:about="#Elena">
-  <rdf:type rdf:resource="#Woman"/>
-  <hasParent rdf:resource="#Ivan"/>
-  <hasParent rdf:resource="#Maria"/>
-</owl:NamedIndividual>
-
-<owl:NamedIndividual rdf:about="#Sergey">
-  <rdf:type rdf:resource="#Man"/>
-  <liveIn rdf:resource="#Altai"/>
-</owl:NamedIndividual>
-
-<owl:NamedIndividual rdf:about="#Ivan">
-  <rdf:type rdf:resource="#Man"/>
-</owl:NamedIndividual>
-
-<owl:NamedIndividual rdf:about="#Maria">
-  <rdf:type rdf:resource="#Woman"/>
-</owl:NamedIndividual>
-
-<owl:NamedIndividual rdf:about="#Astana">
-  <rdf:type rdf:resource="#City"/>
-  <isPart rdf:resource="#Akmola_Region"/>
-  <rdfs:label xml:lang="kz">Астана</rdfs:label>
-  <rdfs:label xml:lang="en">Astana</rdfs:label>
-  <rdfs:label xml:lang="ru">Астана</rdfs:label>
-</owl:NamedIndividual>
-
-<owl:NamedIndividual rdf:about="#Atyrau">
-  <rdf:type rdf:resource="#City"/>
-  <isPart rdf:resource="#Atyrau_Region"/>
-</owl:NamedIndividual>
-
-<owl:NamedIndividual rdf:about="#Atyrau_Region">
-  <rdf:type rdf:resource="#region"/>
-  <isPart rdf:resource="#Kazakhstan"/>
-</owl:NamedIndividual>
-
-<owl:NamedIndividual rdf:about="#Ishim_River">
-  <rdf:type rdf:resource="#River"/>
-  <located rdf:resource="#Akmola_Region"/>
-  <located rdf:resource="#Karaganda_Region"/>
-  <rdfs:label>Ишим Река</rdfs:label>
-</owl:NamedIndividual>
-
-<owl:NamedIndividual rdf:about="#Karaganda_Region">
-  <rdf:type rdf:resource="#region"/>
-  <isPart rdf:resource="#Kazakhstan"/>
-</owl:NamedIndividual>
-
-<owl:NamedIndividual rdf:about="#Karaganda">
-  <rdf:type rdf:resource="#City"/>
-  <isPart rdf:resource="#Karaganda_Region"/>
-</owl:NamedIndividual>
-
-<owl:NamedIndividual rdf:about="#Maxim">
-  <rdf:type rdf:resource="#Man"/>
-  <hasParent rdf:resource="#Elena"/>
-  <hasParent rdf:resource="#Sergey"/>
-</owl:NamedIndividual>
-
-<owl:NamedIndividual rdf:about="#Semey">
-  <rdf:type rdf:resource="#City"/>
-  <isPart rdf:resource="#East-Kazakhstan_Region"/>
-</owl:NamedIndividual>
-
-<owl:NamedIndividual rdf:about="#Talapker">
-  <rdf:type rdf:resource="#township"/>
-  <isPart rdf:resource="#Akmola_Region"/>
-</owl:NamedIndividual>
-
-<owl:NamedIndividual rdf:about="#Taldykol_Lake">
-  <rdf:type rdf:resource="#Lake"/>
-  <located rdf:resource="#Akmola_Region"/>
-  <rdfs:label>Талдыколь Озеро</rdfs:label>
-</owl:NamedIndividual>
-
-<owl:NamedIndividual rdf:about="#Taraz_Region"/>
-
-<owl:NamedIndividual rdf:about="#Zaysan_Lake">
-  <rdf:type rdf:resource="#Lake"/>
-  <located rdf:resource="#East-Kazakhstan_Region"/>
-  <rdfs:label>Зайсан Озеро</rdfs:label>
-</owl:NamedIndividual>
-
-<owl:NamedIndividual rdf:about="#Stepnogorsk">
-  <rdf:type rdf:resource="#settlement"/>
-  <rdfs:label xml:lang="kz">Степногорск</rdfs:label>
-  <rdfs:label xml:lang="en">Stepnogorsk</rdfs:label>
-  <rdfs:label xml:lang="ru">Степногорск</rdfs:label>
-</owl:NamedIndividual>
-
-<owl:NamedIndividual rdf:about="#Atbasar">
-  <rdf:type rdf:resource="#settlement"/>
-  <rdfs:label xml:lang="kz">Атбасар</rdfs:label>
-  <rdfs:label xml:lang="en">Atbasar</rdfs:label>
-  <rdfs:label xml:lang="ru">Атбасар</rdfs:label>
-</owl:NamedIndividual>
-
-<owl:NamedIndividual rdf:about="#Makinsk">
-  <rdf:type rdf:resource="#settlement"/>
-  <rdfs:label xml:lang="kz">Макинск</rdfs:label>
-  <rdfs:label xml:lang="en">Makinsk</rdfs:label>
-  <rdfs:label xml:lang="ru">Макинск</rdfs:label>
-</owl:NamedIndividual>
-
-<owl:NamedIndividual rdf:about="#Akkol">
-  <rdf:type rdf:resource="#settlement"/>
-  <rdfs:label xml:lang="kz">Ақкөл</rdfs:label>
-  <rdfs:label xml:lang="en">Akkol</rdfs:label>
-  <rdfs:label xml:lang="ru">Акколь</rdfs:label>
-</owl:NamedIndividual>
-
-<owl:NamedIndividual rdf:about="#Esil">
-  <rdf:type rdf:resource="#settlement"/>
-  <rdfs:label xml:lang="kz">Есіл</rdfs:label>
-  <rdfs:label xml:lang="en">Esil</rdfs:label>
-  <rdfs:label xml:lang="ru">Есиль</rdfs:label>
-</owl:NamedIndividual>
-
-<owl:NamedIndividual rdf:about="#Ereymentau">
-  <rdf:type rdf:resource="#settlement"/>
-  <rdfs:label xml:lang="kz">Ерейментау</rdfs:label>
-  <rdfs:label xml:lang="en">Ereymentau</rdfs:label>
-  <rdfs:label xml:lang="ru">Ерейментау</rdfs:label>
-</owl:NamedIndividual>
-
-<owl:NamedIndividual rdf:about="#Shchuchinsk">
-  <rdf:type rdf:resource="#settlement"/>
-  <rdfs:label xml:lang="kz">Щучинск</rdfs:label>
-  <rdfs:label xml:lang="en">Shchuchinsk</rdfs:label>
-  <rdfs:label xml:lang="ru">Щучинск</rdfs:label>
-</owl:NamedIndividual>
-
-<owl:NamedIndividual rdf:about="#Kokshetau">
-  <rdf:type rdf:resource="#settlement"/>
-  <rdfs:label xml:lang="kz">Көкшетау</rdfs:label>
-  <rdfs:label xml:lang="en">Kokshetau</rdfs:label>
-  <rdfs:label xml:lang="ru">Кокшетау</rdfs:label>
-</owl:NamedIndividual>
-
-<owl:NamedIndividual rdf:about="#Aqkol_audan">
-  <rdf:type rdf:resource="#settlement"/>
-  <rdfs:label xml:lang="kz">Ақкөл ауданы</rdfs:label>
-  <rdfs:label xml:lang="en">Akkol district</rdfs:label>
-  <rdfs:label xml:lang="ru">Аккольский район</rdfs:label>
-</owl:NamedIndividual>
-
-<owl:NamedIndividual rdf:about="#Arshaly_audan">
-  <rdf:type rdf:resource="#settlement"/>
-  <rdfs:label xml:lang="kz">Аршалы ауданы</rdfs:label>
-  <rdfs:label xml:lang="en">Arshaly district</rdfs:label>
-  <rdfs:label xml:lang="ru">Аршалыский район</rdfs:label>
-</owl:NamedIndividual>
-
-<owl:NamedIndividual rdf:about="#Astrakhan_audan">
-  <rdf:type rdf:resource="#settlement"/>
-  <rdfs:label xml:lang="kz">Астрахан ауданы</rdfs:label>
-  <rdfs:label xml:lang="en">Astrakhan district</rdfs:label>
-  <rdfs:label xml:lang="ru">Астраханский район</rdfs:label>
-</owl:NamedIndividual>
-
-<owl:NamedIndividual rdf:about="#Atbasar_audan">
-  <rdf:type rdf:resource="#settlement"/>
-  <rdfs:label xml:lang="kz">Атбасар ауданы</rdfs:label>
-  <rdfs:label xml:lang="en">Atbasar district</rdfs:label>
-  <rdfs:label xml:lang="ru">Атбасарский район</rdfs:label>
-</owl:NamedIndividual>
-
-<owl:NamedIndividual rdf:about="#Bulandy_audan">
-  <rdf:type rdf:resource="#settlement"/>
-  <rdfs:label xml:lang="kz">Бұланды ауданы</rdfs:label>
-  <rdfs:label xml:lang="en">Bulandy district</rdfs:label>
-  <rdfs:label xml:lang="ru">Буландыский район</rdfs:label>
-</owl:NamedIndividual>
-
-<owl:NamedIndividual rdf:about="#Borovskoy_audan">
-  <rdf:type rdf:resource="#settlement"/>
-  <rdfs:label xml:lang="kz">Бұлақшиелді ауданы</rdfs:label>
-  <rdfs:label xml:lang="en">Borovskoy district</rdfs:label>
-  <rdfs:label xml:lang="ru">Боровской район</rdfs:label>
-</owl:NamedIndividual>
-
-<owl:NamedIndividual rdf:about="#Egindikol_audan">
-  <rdf:type rdf:resource="#settlement"/>
-  <rdfs:label xml:lang="kz">Егіндікөл ауданы</rdfs:label>
-  <rdfs:label xml:lang="en">Egindikol district</rdfs:label>
-  <rdfs:label xml:lang="ru">Егиндикольский район</rdfs:label>
-</owl:NamedIndividual>
-
-<owl:NamedIndividual rdf:about="#Ereymentau_audan">
-  <rdf:type rdf:resource="#settlement"/>
-  <rdfs:label xml:lang="kz">Ерейментау ауданы</rdfs:label>
-  <rdfs:label xml:lang="en">Ereymentau district</rdfs:label>
-  <rdfs:label xml:lang="ru">Ерейментауский район</rdfs:label>
-</owl:NamedIndividual>
-
-<owl:NamedIndividual rdf:about="#Yesil_audan">
-  <rdf:type rdf:resource="#settlement"/>
-  <rdfs:label xml:lang="kz">Есіл ауданы</rdfs:label>
-  <rdfs:label xml:lang="en">Yesil district</rdfs:label>
-  <rdfs:label xml:lang="ru">Есильский район</rdfs:label>
-</owl:NamedIndividual>
-
-<owl:NamedIndividual rdf:about="#Astanа">
-  <rdf:type rdf:resource="#settlement"/>
-  <rdfs:label xml:lang="kz">Астана</rdfs:label>
-  <rdfs:label xml:lang="en">Astana</rdfs:label>
-  <rdfs:label xml:lang="ru">Астана</rdfs:label>
-</owl:NamedIndividual>
-
-<owl:NamedIndividual rdf:about="#Степногорск">
-  <rdf:type rdf:resource="#settlement"/>
-  <rdfs:label xml:lang="kz">Степногорск</rdfs:label>
-  <rdfs:label xml:lang="en">Stepnogorsk</rdfs:label>
-  <rdfs:label xml:lang="ru">Степногорск</rdfs:label>
-</owl:NamedIndividual>
-
-<owl:NamedIndividual rdf:about="#Атбасар">
-  <rdf:type rdf:resource="#settlement"/>
-  <rdfs:label xml:lang="kz">Атбасар</rdfs:label>
-  <rdfs:label xml:lang="en">Atbasar</rdfs:label>
-  <rdfs:label xml:lang="ru">Атбасар</rdfs:label>
-</owl:NamedIndividual>
-
-<owl:NamedIndividual rdf:about="#Макинск">
-  <rdf:type rdf:resource="#settlement"/>
-  <rdfs:label xml:lang="kz">Макинск</rdfs:label>
-  <rdfs:label xml:lang="en">Makinsk</rdfs:label>
-  <rdfs:label xml:lang="ru">Макинск</rdfs:label>
-</owl:NamedIndividual>
-
-<owl:NamedIndividual rdf:about="#Ақкөл">
-  <rdf:type rdf:resource="#settlement"/>
-  <rdfs:label xml:lang="kz">Ақкөл</rdfs:label>
-  <rdfs:label xml:lang="en">Akkol</rdfs:label>
-  <rdfs:label xml:lang="ru">Акколь</rdfs:label>
-</owl:NamedIndividual>
-
-<owl:NamedIndividual rdf:about="#Есіл">
-  <rdf:type rdf:resource="#settlement"/>
-  <rdfs:label xml:lang="kz">Есіл</rdfs:label>
-  <rdfs:label xml:lang="en">Esil</rdfs:label>
-  <rdfs:label xml:lang="ru">Есиль</rdfs:label>
-</owl:NamedIndividual>
-
-<owl:NamedIndividual rdf:about="#Ерейментау">
-  <rdf:type rdf:resource="#settlement"/>
-  <rdfs:label xml:lang="kz">Ерейментау</rdfs:label>
-  <rdfs:label xml:lang="en">Ereymentau</rdfs:label>
-  <rdfs:label xml:lang="ru">Ерейментау</rdfs:label>
-</owl:NamedIndividual>
-
-<owl:NamedIndividual rdf:about="#Щучинск">
-  <rdf:type rdf:resource="#settlement"/>
-  <rdfs:label xml:lang="kz">Щучинск</rdfs:label>
-  <rdfs:label xml:lang="en">Shchuchinsk</rdfs:label>
-  <rdfs:label xml:lang="ru">Щучинск</rdfs:label>
-</owl:NamedIndividual>
-
-<owl:NamedIndividual rdf:about="#Көкшетау">
-  <rdf:type rdf:resource="#settlement"/>
-  <rdfs:label xml:lang="kz">Көкшетау</rdfs:label>
-  <rdfs:label xml:lang="en">Kokshetau</rdfs:label>
-  <rdfs:label xml:lang="ru">Кокшетау</rdfs:label>
-</owl:NamedIndividual>
-
-<owl:NamedIndividual rdf:about="#Taraz">
-  <rdf:type rdf:resource="#settlement"/>
-</owl:NamedIndividual>
-
-<owl:NamedIndividual rdf:about="#Shu">
-  <rdf:type rdf:resource="#settlement"/>
-  <rdfs:label xml:lang="kz">Шу</rdfs:label>
-  <rdfs:label xml:lang="en">Shu</rdfs:label>
-  <rdfs:label xml:lang="ru">Шу</rdfs:label>
-</owl:NamedIndividual>
-
-<owl:NamedIndividual rdf:about="#Kentau">
-  <rdf:type rdf:resource="#settlement"/>
-  <rdfs:label xml:lang="kz">Кентау</rdfs:label>
-  <rdfs:label xml:lang="en">Kentau</rdfs:label>
-  <rdfs:label xml:lang="ru">Кентау</rdfs:label>
-</owl:NamedIndividual>
-
-<owl:NamedIndividual rdf:about="#Zhambyl">
-  <rdf:type rdf:resource="#settlement"/>
-  <rdfs:label xml:lang="kz">Жамбыл</rdfs:label>
-  <rdfs:label xml:lang="en">Zhambyl</rdfs:label>
-  <rdfs:label xml:lang="ru">Жамбыл</rdfs:label>
-</owl:NamedIndividual>
-
-<owl:NamedIndividual rdf:about="#Turar Ryskulov">
-  <rdf:type rdf:resource="#settlement"/>
-  <rdfs:label xml:lang="kz">Турар Рыскұлов</rdfs:label>
-  <rdfs:label xml:lang="en">Turar Ryskulov</rdfs:label>
-  <rdfs:label xml:lang="ru">Турар Рыскұлов</rdfs:label>
-</owl:NamedIndividual>
-
-<owl:NamedIndividual rdf:about="#Burylbaytal">
-  <rdf:type rdf:resource="#settlement"/>
-  <rdfs:label xml:lang="kz">Бүрілбайтал</rdfs:label>
-  <rdfs:label xml:lang="en">Burylbaytal</rdfs:label>
-  <rdfs:label xml:lang="ru">Бурылбайтал</rdfs:label>
-</owl:NamedIndividual>
-
-<owl:NamedIndividual rdf:about="#Тараз">
-  <rdf:type rdf:resource="#settlement"/>
-  <rdfs:label xml:lang="kz">Тараз</rdfs:label>
-  <rdfs:label xml:lang="en">Taraz</rdfs:label>
-  <rdfs:label xml:lang="ru">Тараз</rdfs:label>
-</owl:NamedIndividual>
-
-<owl:NamedIndividual rdf:about="#Джамбул">
-  <rdf:type rdf:resource="#settlement"/>
-  <rdfs:label xml:lang="kz">Джамбул</rdfs:label>
-  <rdfs:label xml:lang="en">Jambyl</rdfs:label>
-  <rdfs:label xml:lang="ru">Джамбул</rdfs:label>
-</owl:NamedIndividual>
-
-<owl:NamedIndividual rdf:about="#Nur-Sultan">
-  <rdf:type rdf:resource="#settlement"/>
-</owl:NamedIndividual>
-
-<owl:NamedIndividual rdf:about="#Aktobe">
-  <rdf:type rdf:resource="#settlement"/>
-</owl:NamedIndividual>
-
-<owl:NamedIndividual rdf:about="#Shymkent">
-  <rdf:type rdf:resource="#settlement"/>
-</owl:NamedIndividual>
-
-<owl:NamedIndividual rdf:about="#Pavlodar">
-  <rdf:type rdf:resource="#settlement"/>
-</owl:NamedIndividual>
-
-<owl:NamedIndividual rdf:about="#Kostanay">
-  <rdf:type rdf:resource="#settlement"/>
-</owl:NamedIndividual>
-
-<owl:NamedIndividual rdf:about="#Petropavl">
-  <rdf:type rdf:resource="#settlement"/>
-</owl:NamedIndividual>
-
-<owl:NamedIndividual rdf:about="#Kyzylorda">
-  <rdf:type rdf:resource="#settlement"/>
-</owl:NamedIndividual>
-
-<owl:NamedIndividual rdf:about="#Republic of Kazakhstan">
-  <rdf:type rdf:resource="#settlement"/>
-</owl:NamedIndividual>
-
-<owl:NamedIndividual rdf:about="#Settlements in Kazakhstan">
-  <rdf:type rdf:resource="#settlement"/>
-</owl:NamedIndividual>
+    
+
+
+    <!-- http://www.aiu.kz/ontology/society#GrandSon -->
 
+    <owl:Class rdf:about="http://www.aiu.kz/ontology/society#GrandSon">
+        <owl:equivalentClass>
+            <owl:Class>
+                <owl:intersectionOf rdf:parseType="Collection">
+                    <rdf:Description rdf:about="http://www.aiu.kz/ontology/society#Man"/>
+                    <owl:Restriction>
+                        <owl:onProperty rdf:resource="http://www.aiu.kz/ontology/society#isGrandChild"/>
+                        <owl:someValuesFrom rdf:resource="http://www.aiu.kz/ontology/society#Human"/>
+                    </owl:Restriction>
+                </owl:intersectionOf>
+            </owl:Class>
+        </owl:equivalentClass>
+        <rdfs:subClassOf rdf:resource="http://www.aiu.kz/ontology/society#Man"/>
+        <rdfs:label>Внук</rdfs:label>
+    </owl:Class>
+    
+
+
+    <!-- http://www.aiu.kz/ontology/society#Human -->
+
+    <owl:Class rdf:about="http://www.aiu.kz/ontology/society#Human">
+        <rdfs:label>Человек</rdfs:label>
+    </owl:Class>
+    
+
+
+    <!-- http://www.aiu.kz/ontology/society#Lake -->
+
+    <owl:Class rdf:about="http://www.aiu.kz/ontology/society#Lake">
+        <rdfs:subClassOf rdf:resource="http://www.aiu.kz/ontology/society#object"/>
+        <rdfs:label>Озеро</rdfs:label>
+    </owl:Class>
+    
+
+
+    <!-- http://www.aiu.kz/ontology/society#Man -->
+
+    <owl:Class rdf:about="http://www.aiu.kz/ontology/society#Man">
+        <rdfs:subClassOf rdf:resource="http://www.aiu.kz/ontology/society#Human"/>
+        <rdfs:label>Мужчина</rdfs:label>
+    </owl:Class>
+    
+
+
+    <!-- http://www.aiu.kz/ontology/society#Mother -->
 
+    <owl:Class rdf:about="http://www.aiu.kz/ontology/society#Mother">
+        <owl:equivalentClass>
+            <owl:Class>
+                <owl:intersectionOf rdf:parseType="Collection">
+                    <rdf:Description rdf:about="http://www.aiu.kz/ontology/society#Woman"/>
+                    <owl:Restriction>
+                        <owl:onProperty rdf:resource="http://www.aiu.kz/ontology/society#hasChild"/>
+                        <owl:someValuesFrom rdf:resource="http://www.aiu.kz/ontology/society#Human"/>
+                    </owl:Restriction>
+                </owl:intersectionOf>
+            </owl:Class>
+        </owl:equivalentClass>
+        <rdfs:subClassOf rdf:resource="http://www.aiu.kz/ontology/society#Parent"/>
+        <rdfs:subClassOf rdf:resource="http://www.aiu.kz/ontology/society#Woman"/>
+        <rdfs:label>Мать</rdfs:label>
+    </owl:Class>
+    
+
+
+    <!-- http://www.aiu.kz/ontology/society#Mountain -->
+
+    <owl:Class rdf:about="http://www.aiu.kz/ontology/society#Mountain">
+        <rdfs:subClassOf rdf:resource="http://www.aiu.kz/ontology/society#object"/>
+        <rdfs:label>Горы</rdfs:label>
+    </owl:Class>
+    
+
+
+    <!-- http://www.aiu.kz/ontology/society#Parent -->
+
+    <owl:Class rdf:about="http://www.aiu.kz/ontology/society#Parent">
+        <owl:equivalentClass>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="http://www.aiu.kz/ontology/society#hasChild"/>
+                <owl:someValuesFrom rdf:resource="http://www.aiu.kz/ontology/society#Human"/>
+            </owl:Restriction>
+        </owl:equivalentClass>
+        <rdfs:subClassOf rdf:resource="http://www.aiu.kz/ontology/society#Human"/>
+        <rdfs:label>Родитель</rdfs:label>
+    </owl:Class>
+    
+
+
+    <!-- http://www.aiu.kz/ontology/society#River -->
+
+    <owl:Class rdf:about="http://www.aiu.kz/ontology/society#River">
+        <rdfs:subClassOf rdf:resource="http://www.aiu.kz/ontology/society#object"/>
+        <rdfs:label>Река</rdfs:label>
+    </owl:Class>
+    
+
+
+    <!-- http://www.aiu.kz/ontology/society#Son -->
+
+    <owl:Class rdf:about="http://www.aiu.kz/ontology/society#Son">
+        <owl:equivalentClass>
+            <owl:Class>
+                <owl:intersectionOf rdf:parseType="Collection">
+                    <rdf:Description rdf:about="http://www.aiu.kz/ontology/society#Man"/>
+                    <owl:Restriction>
+                        <owl:onProperty rdf:resource="http://www.aiu.kz/ontology/society#hasParent"/>
+                        <owl:someValuesFrom rdf:resource="http://www.aiu.kz/ontology/society#Human"/>
+                    </owl:Restriction>
+                </owl:intersectionOf>
+            </owl:Class>
+        </owl:equivalentClass>
+        <rdfs:subClassOf rdf:resource="http://www.aiu.kz/ontology/society#Child"/>
+        <rdfs:subClassOf rdf:resource="http://www.aiu.kz/ontology/society#Man"/>
+        <rdfs:label>Сын</rdfs:label>
+    </owl:Class>
+    
+
+
+    <!-- http://www.aiu.kz/ontology/society#Woman -->
+
+    <owl:Class rdf:about="http://www.aiu.kz/ontology/society#Woman">
+        <rdfs:subClassOf rdf:resource="http://www.aiu.kz/ontology/society#Human"/>
+        <rdfs:label>Женщина</rdfs:label>
+    </owl:Class>
+    
+
+
+    <!-- http://www.aiu.kz/ontology/society#inhabitant -->
+
+    <owl:Class rdf:about="http://www.aiu.kz/ontology/society#inhabitant">
+        <rdfs:subClassOf rdf:resource="http://www.aiu.kz/ontology/society#Human"/>
+        <rdfs:label>Житель</rdfs:label>
+    </owl:Class>
+    
+
+
+    <!-- http://www.aiu.kz/ontology/society#object -->
+
+    <owl:Class rdf:about="http://www.aiu.kz/ontology/society#object">
+        <rdfs:label>Объект</rdfs:label>
+    </owl:Class>
+    
+
+
+    <!-- http://www.aiu.kz/ontology/society#region -->
+
+    <owl:Class rdf:about="http://www.aiu.kz/ontology/society#region">
+        <rdfs:subClassOf rdf:resource="http://www.aiu.kz/ontology/society#Area"/>
+        <rdfs:label>Регион (область)</rdfs:label>
+    </owl:Class>
+    
+
+
+    <!-- http://www.aiu.kz/ontology/society#settlement -->
+
+    <owl:Class rdf:about="http://www.aiu.kz/ontology/society#settlement">
+        <rdfs:subClassOf rdf:resource="http://www.aiu.kz/ontology/society#Area"/>
+        <rdfs:label>Населенный пункт</rdfs:label>
+    </owl:Class>
+    
+
+
+    <!-- http://www.aiu.kz/ontology/society#township -->
+
+    <owl:Class rdf:about="http://www.aiu.kz/ontology/society#township">
+        <rdfs:subClassOf rdf:resource="http://www.aiu.kz/ontology/society#settlement"/>
+        <rdfs:label>Поселок</rdfs:label>
+    </owl:Class>
+    
+
+
+    <!-- 
+    ///////////////////////////////////////////////////////////////////////////////////////
+    //
+    // Individuals
+    //
+    ///////////////////////////////////////////////////////////////////////////////////////
+     -->
+
+    
+
+
+    <!-- http://www.aiu.kz/ontology/society#Abai_Region -->
+
+    <owl:NamedIndividual rdf:about="http://www.aiu.kz/ontology/society#Abai_Region">
+        <rdf:type rdf:resource="http://www.aiu.kz/ontology/society#region"/>
+        <society:hasBorder rdf:resource="http://www.aiu.kz/ontology/society#Jetisu_Region"/>
+        <society:hasBorder rdf:resource="http://www.aiu.kz/ontology/society#Karaganda_Region"/>
+        <society:hasBorder rdf:resource="http://www.aiu.kz/ontology/society#Pavlodar_Region"/>
+        <society:isPart rdf:resource="http://www.aiu.kz/ontology/society#Kazakhstan"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.aiu.kz/ontology/society#Akmola_Region -->
+
+    <owl:NamedIndividual rdf:about="http://www.aiu.kz/ontology/society#Akmola_Region">
+        <rdf:type rdf:resource="http://www.aiu.kz/ontology/society#region"/>
+        <society:hasBorder rdf:resource="http://www.aiu.kz/ontology/society#Karaganda_Region"/>
+        <society:hasBorder rdf:resource="http://www.aiu.kz/ontology/society#Kostanay_Region"/>
+        <society:hasBorder rdf:resource="http://www.aiu.kz/ontology/society#North_Kazakhstan_Region"/>
+        <society:hasBorder rdf:resource="http://www.aiu.kz/ontology/society#Pavlodar_Region"/>
+        <society:isPart rdf:resource="http://www.aiu.kz/ontology/society#Kazakhstan"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.aiu.kz/ontology/society#Aktobe_Region -->
+
+    <owl:NamedIndividual rdf:about="http://www.aiu.kz/ontology/society#Aktobe_Region">
+        <rdf:type rdf:resource="http://www.aiu.kz/ontology/society#region"/>
+        <society:hasBorder rdf:resource="http://www.aiu.kz/ontology/society#Atyrau_Region"/>
+        <society:hasBorder rdf:resource="http://www.aiu.kz/ontology/society#Kostanay_Region"/>
+        <society:hasBorder rdf:resource="http://www.aiu.kz/ontology/society#Kyzylorda_Region"/>
+        <society:hasBorder rdf:resource="http://www.aiu.kz/ontology/society#Mangystau_Region"/>
+        <society:hasBorder rdf:resource="http://www.aiu.kz/ontology/society#Ulytau_Region"/>
+        <society:hasBorder rdf:resource="http://www.aiu.kz/ontology/society#West_Kazakhstan_Region"/>
+        <society:isPart rdf:resource="http://www.aiu.kz/ontology/society#Kazakhstan"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.aiu.kz/ontology/society#Almaty -->
+
+    <owl:NamedIndividual rdf:about="http://www.aiu.kz/ontology/society#Almaty">
+        <rdf:type rdf:resource="http://www.aiu.kz/ontology/society#City"/>
+        <society:isPart rdf:resource="http://www.aiu.kz/ontology/society#Almatyn_Region"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.aiu.kz/ontology/society#Almaty_Region -->
+
+    <owl:NamedIndividual rdf:about="http://www.aiu.kz/ontology/society#Almaty_Region">
+        <rdf:type rdf:resource="http://www.aiu.kz/ontology/society#Area"/>
+        <rdfs:label>Страна</rdfs:label>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.aiu.kz/ontology/society#Almatyn_Region -->
+
+    <owl:NamedIndividual rdf:about="http://www.aiu.kz/ontology/society#Almatyn_Region">
+        <rdf:type rdf:resource="http://www.aiu.kz/ontology/society#region"/>
+        <society:hasBorder rdf:resource="http://www.aiu.kz/ontology/society#Jambyl_Region"/>
+        <society:hasBorder rdf:resource="http://www.aiu.kz/ontology/society#Jetisu_Region"/>
+        <society:hasBorder rdf:resource="http://www.aiu.kz/ontology/society#Karaganda_Region"/>
+        <society:isPart rdf:resource="http://www.aiu.kz/ontology/society#Kazakhstan"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.aiu.kz/ontology/society#Altai -->
+
+    <owl:NamedIndividual rdf:about="http://www.aiu.kz/ontology/society#Altai">
+        <rdf:type rdf:resource="http://www.aiu.kz/ontology/society#Area"/>
+        <society:isPart rdf:resource="http://www.aiu.kz/ontology/society#East-Kazakhstan_Region"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.aiu.kz/ontology/society#Anna -->
+
+    <owl:NamedIndividual rdf:about="http://www.aiu.kz/ontology/society#Anna">
+        <rdf:type rdf:resource="http://www.aiu.kz/ontology/society#Woman"/>
+        <society:hasParent rdf:resource="http://www.aiu.kz/ontology/society#Elena"/>
+        <society:hasParent rdf:resource="http://www.aiu.kz/ontology/society#Sergey"/>
+        <society:Age rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">50</society:Age>
+        <society:PlaceOfBirth>Астана</society:PlaceOfBirth>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.aiu.kz/ontology/society#Astana -->
+
+    <owl:NamedIndividual rdf:about="http://www.aiu.kz/ontology/society#Astana">
+        <rdf:type rdf:resource="http://www.aiu.kz/ontology/society#City"/>
+        <society:isPart rdf:resource="http://www.aiu.kz/ontology/society#Akmola_Region"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.aiu.kz/ontology/society#Atyrau -->
+
+    <owl:NamedIndividual rdf:about="http://www.aiu.kz/ontology/society#Atyrau">
+        <rdf:type rdf:resource="http://www.aiu.kz/ontology/society#City"/>
+        <society:isPart rdf:resource="http://www.aiu.kz/ontology/society#Atyrau_Region"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.aiu.kz/ontology/society#Atyrau_Region -->
+
+    <owl:NamedIndividual rdf:about="http://www.aiu.kz/ontology/society#Atyrau_Region">
+        <rdf:type rdf:resource="http://www.aiu.kz/ontology/society#region"/>
+        <society:hasBorder rdf:resource="http://www.aiu.kz/ontology/society#Mangystau_Region"/>
+        <society:hasBorder rdf:resource="http://www.aiu.kz/ontology/society#West_Kazakhstan_Region"/>
+        <society:isPart rdf:resource="http://www.aiu.kz/ontology/society#Kazakhstan"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.aiu.kz/ontology/society#East-Kazakhstan_Region -->
+
+    <owl:NamedIndividual rdf:about="http://www.aiu.kz/ontology/society#East-Kazakhstan_Region">
+        <rdf:type rdf:resource="http://www.aiu.kz/ontology/society#region"/>
+        <society:hasBorder rdf:resource="http://www.aiu.kz/ontology/society#Abai_Region"/>
+        <society:isPart rdf:resource="http://www.aiu.kz/ontology/society#Kazakhstan"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.aiu.kz/ontology/society#Elena -->
+
+    <owl:NamedIndividual rdf:about="http://www.aiu.kz/ontology/society#Elena">
+        <rdf:type rdf:resource="http://www.aiu.kz/ontology/society#Woman"/>
+        <society:hasParent rdf:resource="http://www.aiu.kz/ontology/society#Ivan"/>
+        <society:hasParent rdf:resource="http://www.aiu.kz/ontology/society#Maria"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.aiu.kz/ontology/society#Ishim_River -->
+
+    <owl:NamedIndividual rdf:about="http://www.aiu.kz/ontology/society#Ishim_River">
+        <rdf:type rdf:resource="http://www.aiu.kz/ontology/society#River"/>
+        <society:located rdf:resource="http://www.aiu.kz/ontology/society#Akmola_Region"/>
+        <society:located rdf:resource="http://www.aiu.kz/ontology/society#Karaganda_Region"/>
+        <rdfs:label>Ишим Река</rdfs:label>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.aiu.kz/ontology/society#Ivan -->
+
+    <owl:NamedIndividual rdf:about="http://www.aiu.kz/ontology/society#Ivan">
+        <rdf:type rdf:resource="http://www.aiu.kz/ontology/society#Man"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.aiu.kz/ontology/society#Jambyl_Region -->
+
+    <owl:NamedIndividual rdf:about="http://www.aiu.kz/ontology/society#Jambyl_Region">
+        <rdf:type rdf:resource="http://www.aiu.kz/ontology/society#region"/>
+        <society:hasBorder rdf:resource="http://www.aiu.kz/ontology/society#Karaganda_Region"/>
+        <society:hasBorder rdf:resource="http://www.aiu.kz/ontology/society#Turkestan_Region"/>
+        <society:hasBorder rdf:resource="http://www.aiu.kz/ontology/society#Ulytau_Region"/>
+        <society:isPart rdf:resource="http://www.aiu.kz/ontology/society#Kazakhstan"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.aiu.kz/ontology/society#Jetisu_Region -->
+
+    <owl:NamedIndividual rdf:about="http://www.aiu.kz/ontology/society#Jetisu_Region">
+        <rdf:type rdf:resource="http://www.aiu.kz/ontology/society#region"/>
+        <society:hasBorder rdf:resource="http://www.aiu.kz/ontology/society#Karaganda_Region"/>
+        <society:isPart rdf:resource="http://www.aiu.kz/ontology/society#Kazakhstan"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.aiu.kz/ontology/society#Karaganda -->
+
+    <owl:NamedIndividual rdf:about="http://www.aiu.kz/ontology/society#Karaganda">
+        <rdf:type rdf:resource="http://www.aiu.kz/ontology/society#City"/>
+        <society:isPart rdf:resource="http://www.aiu.kz/ontology/society#Karaganda_Region"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.aiu.kz/ontology/society#Karaganda_Region -->
+
+    <owl:NamedIndividual rdf:about="http://www.aiu.kz/ontology/society#Karaganda_Region">
+        <rdf:type rdf:resource="http://www.aiu.kz/ontology/society#region"/>
+        <society:hasBorder rdf:resource="http://www.aiu.kz/ontology/society#Jambyl_Region"/>
+        <society:hasBorder rdf:resource="http://www.aiu.kz/ontology/society#Jetisu_Region"/>
+        <society:hasBorder rdf:resource="http://www.aiu.kz/ontology/society#Kostanay_Region"/>
+        <society:hasBorder rdf:resource="http://www.aiu.kz/ontology/society#Pavlodar_Region"/>
+        <society:hasBorder rdf:resource="http://www.aiu.kz/ontology/society#Ulytau_Region"/>
+        <society:isPart rdf:resource="http://www.aiu.kz/ontology/society#Kazakhstan"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.aiu.kz/ontology/society#Kazakhstan -->
+
+    <owl:NamedIndividual rdf:about="http://www.aiu.kz/ontology/society#Kazakhstan">
+        <rdf:type rdf:resource="http://www.aiu.kz/ontology/society#Country"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.aiu.kz/ontology/society#Kostanay_Region -->
+
+    <owl:NamedIndividual rdf:about="http://www.aiu.kz/ontology/society#Kostanay_Region">
+        <rdf:type rdf:resource="http://www.aiu.kz/ontology/society#region"/>
+        <society:hasBorder rdf:resource="http://www.aiu.kz/ontology/society#North_Kazakhstan_Region"/>
+        <society:hasBorder rdf:resource="http://www.aiu.kz/ontology/society#Ulytau_Region"/>
+        <society:isPart rdf:resource="http://www.aiu.kz/ontology/society#Kazakhstan"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.aiu.kz/ontology/society#Kyzylorda_Region -->
+
+    <owl:NamedIndividual rdf:about="http://www.aiu.kz/ontology/society#Kyzylorda_Region">
+        <rdf:type rdf:resource="http://www.aiu.kz/ontology/society#region"/>
+        <society:hasBorder rdf:resource="http://www.aiu.kz/ontology/society#Turkestan_Region"/>
+        <society:hasBorder rdf:resource="http://www.aiu.kz/ontology/society#Ulytau_Region"/>
+        <society:isPart rdf:resource="http://www.aiu.kz/ontology/society#Kazakhstan"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.aiu.kz/ontology/society#Mangystau_Region -->
+
+    <owl:NamedIndividual rdf:about="http://www.aiu.kz/ontology/society#Mangystau_Region">
+        <rdf:type rdf:resource="http://www.aiu.kz/ontology/society#region"/>
+        <society:isPart rdf:resource="http://www.aiu.kz/ontology/society#Kazakhstan"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.aiu.kz/ontology/society#Maria -->
+
+    <owl:NamedIndividual rdf:about="http://www.aiu.kz/ontology/society#Maria">
+        <rdf:type rdf:resource="http://www.aiu.kz/ontology/society#Woman"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.aiu.kz/ontology/society#Maxim -->
+
+    <owl:NamedIndividual rdf:about="http://www.aiu.kz/ontology/society#Maxim">
+        <rdf:type rdf:resource="http://www.aiu.kz/ontology/society#Man"/>
+        <society:hasParent rdf:resource="http://www.aiu.kz/ontology/society#Elena"/>
+        <society:hasParent rdf:resource="http://www.aiu.kz/ontology/society#Sergey"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.aiu.kz/ontology/society#North_Kazakhstan_Region -->
+
+    <owl:NamedIndividual rdf:about="http://www.aiu.kz/ontology/society#North_Kazakhstan_Region">
+        <rdf:type rdf:resource="http://www.aiu.kz/ontology/society#region"/>
+        <society:hasBorder rdf:resource="http://www.aiu.kz/ontology/society#Pavlodar_Region"/>
+        <society:isPart rdf:resource="http://www.aiu.kz/ontology/society#Kazakhstan"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.aiu.kz/ontology/society#Pavlodar_Region -->
+
+    <owl:NamedIndividual rdf:about="http://www.aiu.kz/ontology/society#Pavlodar_Region">
+        <rdf:type rdf:resource="http://www.aiu.kz/ontology/society#region"/>
+        <society:isPart rdf:resource="http://www.aiu.kz/ontology/society#Kazakhstan"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.aiu.kz/ontology/society#Semey -->
+
+    <owl:NamedIndividual rdf:about="http://www.aiu.kz/ontology/society#Semey">
+        <rdf:type rdf:resource="http://www.aiu.kz/ontology/society#City"/>
+        <society:isPart rdf:resource="http://www.aiu.kz/ontology/society#East-Kazakhstan_Region"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.aiu.kz/ontology/society#Sergey -->
+
+    <owl:NamedIndividual rdf:about="http://www.aiu.kz/ontology/society#Sergey">
+        <rdf:type rdf:resource="http://www.aiu.kz/ontology/society#Man"/>
+        <society:liveIn rdf:resource="http://www.aiu.kz/ontology/society#Altai"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.aiu.kz/ontology/society#Talapker -->
+
+    <owl:NamedIndividual rdf:about="http://www.aiu.kz/ontology/society#Talapker">
+        <rdf:type rdf:resource="http://www.aiu.kz/ontology/society#township"/>
+        <society:isPart rdf:resource="http://www.aiu.kz/ontology/society#Akmola_Region"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.aiu.kz/ontology/society#Taldykol_Lake -->
+
+    <owl:NamedIndividual rdf:about="http://www.aiu.kz/ontology/society#Taldykol_Lake">
+        <rdf:type rdf:resource="http://www.aiu.kz/ontology/society#Lake"/>
+        <society:located rdf:resource="http://www.aiu.kz/ontology/society#Akmola_Region"/>
+        <rdfs:label>Талдыколь Озеро</rdfs:label>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.aiu.kz/ontology/society#Turkestan_Region -->
+
+    <owl:NamedIndividual rdf:about="http://www.aiu.kz/ontology/society#Turkestan_Region">
+        <rdf:type rdf:resource="http://www.aiu.kz/ontology/society#region"/>
+        <society:hasBorder rdf:resource="http://www.aiu.kz/ontology/society#Ulytau_Region"/>
+        <society:isPart rdf:resource="http://www.aiu.kz/ontology/society#Kazakhstan"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.aiu.kz/ontology/society#Ulytau_Region -->
+
+    <owl:NamedIndividual rdf:about="http://www.aiu.kz/ontology/society#Ulytau_Region">
+        <rdf:type rdf:resource="http://www.aiu.kz/ontology/society#region"/>
+        <society:isPart rdf:resource="http://www.aiu.kz/ontology/society#Kazakhstan"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.aiu.kz/ontology/society#West_Kazakhstan_Region -->
+
+    <owl:NamedIndividual rdf:about="http://www.aiu.kz/ontology/society#West_Kazakhstan_Region">
+        <rdf:type rdf:resource="http://www.aiu.kz/ontology/society#region"/>
+        <society:isPart rdf:resource="http://www.aiu.kz/ontology/society#Kazakhstan"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.aiu.kz/ontology/society#Zaysan_Lake -->
+
+    <owl:NamedIndividual rdf:about="http://www.aiu.kz/ontology/society#Zaysan_Lake">
+        <rdf:type rdf:resource="http://www.aiu.kz/ontology/society#Lake"/>
+        <society:located rdf:resource="http://www.aiu.kz/ontology/society#East-Kazakhstan_Region"/>
+        <rdfs:label>Зайсан Озеро</rdfs:label>
+    </owl:NamedIndividual>
 </rdf:RDF>
+
+
+
+<!-- Generated by the OWL API (version 4.5.26.2023-07-17T20:34:13Z) https://github.com/owlcs/owlapi -->
+

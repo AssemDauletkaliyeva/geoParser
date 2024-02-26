@@ -1,0 +1,473 @@
+<?xml version="1.0"?>
+<rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+         xmlns:xsd="http://www.w3.org/2001/XMLSchema#"
+         xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#"
+         xmlns:owl="http://www.w3.org/2002/07/owl#"
+         xml:base="http://www.aiu.kz/ontology/society"
+         xmlns="http://www.aiu.kz/ontology/society#">
+
+<owl:Ontology rdf:about="http://www.aiu.kz/ontology/society">
+  <rdfs:comment>Онтология родственных отношений</rdfs:comment>
+</owl:Ontology>
+
+<owl:ObjectProperty rdf:about="#consists">
+  <owl:inverseOf rdf:resource="#located"/>
+  <rdfs:domain rdf:resource="#Area"/>
+  <rdfs:range rdf:resource="#Object"/>
+  <owl:propertyChainAxiom>
+    <rdf:Description>
+      <rdf:first rdf:resource="#includes"/>
+      <rdf:rest>
+        <rdf:Description>
+          <rdf:first rdf:resource="#consists"/>
+          <rdf:rest rdf:resource="http://www.w3.org/1999/02/22-rdf-syntax-ns#nil"/>
+        </rdf:Description>
+      </rdf:rest>
+    </rdf:Description>
+  </owl:propertyChainAxiom>
+</owl:ObjectProperty>
+
+<owl:ObjectProperty rdf:about="#located">
+  <rdfs:domain rdf:resource="#Object"/>
+  <rdfs:range rdf:resource="#Area"/>
+  <owl:propertyChainAxiom>
+    <rdf:Description>
+      <rdf:first rdf:resource="#located"/>
+      <rdf:rest>
+        <rdf:Description>
+          <rdf:first rdf:resource="#isPart"/>
+          <rdf:rest rdf:resource="http://www.w3.org/1999/02/22-rdf-syntax-ns#nil"/>
+        </rdf:Description>
+      </rdf:rest>
+    </rdf:Description>
+  </owl:propertyChainAxiom>
+</owl:ObjectProperty>
+
+<owl:ObjectProperty rdf:about="#includes">
+  <owl:inverseOf rdf:resource="#isPart"/>
+  <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#TransitiveProperty"/>
+  <rdfs:domain rdf:resource="#Area"/>
+  <rdfs:range rdf:resource="#Area"/>
+</owl:ObjectProperty>
+
+<owl:ObjectProperty rdf:about="#hasAncestor">
+  <rdfs:subPropertyOf rdf:resource="#related"/>
+  <owl:inverseOf rdf:resource="#isAncestor"/>
+  <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#TransitiveProperty"/>
+  <rdfs:label>имеетПредка</rdfs:label>
+</owl:ObjectProperty>
+
+<owl:ObjectProperty rdf:about="#related">
+  <rdfs:subPropertyOf rdf:resource="http://www.w3.org/2002/07/owl#topObjectProperty"/>
+</owl:ObjectProperty>
+
+<owl:ObjectProperty rdf:about="#isAncestor">
+  <rdfs:subPropertyOf rdf:resource="#related"/>
+  <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#TransitiveProperty"/>
+  <rdfs:label>являетсяПредком</rdfs:label>
+</owl:ObjectProperty>
+
+<owl:ObjectProperty rdf:about="#hasBorder">
+  <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#SymmetricProperty"/>
+  <rdfs:domain rdf:resource="#Area"/>
+  <rdfs:range rdf:resource="#Area"/>
+</owl:ObjectProperty>
+
+<owl:ObjectProperty rdf:about="#hasChild">
+  <owl:equivalentProperty rdf:resource="#isParent"/>
+  <rdfs:subPropertyOf rdf:resource="#hasDescendant"/>
+  <owl:inverseOf rdf:resource="#isChild"/>
+  <rdfs:label>имеетРебенка</rdfs:label>
+</owl:ObjectProperty>
+
+<owl:ObjectProperty rdf:about="#isParent">
+  <rdfs:subPropertyOf rdf:resource="#isAncestor"/>
+  <rdfs:label>являетсяРодителем</rdfs:label>
+</owl:ObjectProperty>
+
+<owl:ObjectProperty rdf:about="#hasDescendant">
+  <rdfs:subPropertyOf rdf:resource="#related"/>
+  <owl:inverseOf rdf:resource="#isDescendant"/>
+  <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#TransitiveProperty"/>
+  <rdfs:label>имеетПотомка</rdfs:label>
+</owl:ObjectProperty>
+
+<owl:ObjectProperty rdf:about="#isChild">
+  <rdfs:subPropertyOf rdf:resource="#isDescendant"/>
+  <rdfs:label>являетсяРебенком</rdfs:label>
+</owl:ObjectProperty>
+
+<owl:ObjectProperty rdf:about="#isDescendant">
+  <rdfs:subPropertyOf rdf:resource="#related"/>
+  <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#TransitiveProperty"/>
+  <rdfs:label>являетсяПотомком</rdfs:label>
+</owl:ObjectProperty>
+
+<owl:ObjectProperty rdf:about="#hasHabitant">
+  <owl:inverseOf rdf:resource="#liveIn"/>
+  <rdfs:domain rdf:resource="#Area"/>
+</owl:ObjectProperty>
+
+<owl:ObjectProperty rdf:about="#liveIn">
+  <rdfs:range rdf:resource="#Area"/>
+</owl:ObjectProperty>
+
+<owl:ObjectProperty rdf:about="#hasParent">
+  <owl:equivalentProperty rdf:resource="#isChild"/>
+  <rdfs:subPropertyOf rdf:resource="#hasAncestor"/>
+  <owl:inverseOf rdf:resource="#isParent"/>
+  <rdfs:label>имеетРодителя</rdfs:label>
+</owl:ObjectProperty>
+
+<owl:ObjectProperty rdf:about="#isPart">
+  <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#TransitiveProperty"/>
+  <rdfs:domain rdf:resource="#Area"/>
+  <rdfs:range rdf:resource="#Area"/>
+</owl:ObjectProperty>
+
+<owl:ObjectProperty rdf:about="#isFather">
+  <rdfs:subPropertyOf rdf:resource="#isParent"/>
+  <rdfs:label>являетсяОтцом</rdfs:label>
+</owl:ObjectProperty>
+
+<owl:ObjectProperty rdf:about="#isGrandChild">
+  <rdfs:subPropertyOf rdf:resource="#isDescendant"/>
+  <owl:inverseOf rdf:resource="#isGrandParents"/>
+  <rdfs:label>являетсяВнукомВнучкой</rdfs:label>
+</owl:ObjectProperty>
+
+<owl:ObjectProperty rdf:about="#isGrandParents">
+  <rdfs:subPropertyOf rdf:resource="#isAncestor"/>
+  <owl:propertyChainAxiom>
+    <rdf:Description>
+      <rdf:first rdf:resource="#isParent"/>
+      <rdf:rest>
+        <rdf:Description>
+          <rdf:first rdf:resource="#isParent"/>
+          <rdf:rest rdf:resource="http://www.w3.org/1999/02/22-rdf-syntax-ns#nil"/>
+        </rdf:Description>
+      </rdf:rest>
+    </rdf:Description>
+  </owl:propertyChainAxiom>
+  <rdfs:label>являетсяБабушкойДедушкой</rdfs:label>
+</owl:ObjectProperty>
+
+<owl:ObjectProperty rdf:about="#isSibling">
+  <rdfs:subPropertyOf rdf:resource="#related"/>
+  <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#SymmetricProperty"/>
+  <owl:propertyChainAxiom>
+    <rdf:Description>
+      <rdf:first rdf:resource="#hasParent"/>
+      <rdf:rest>
+        <rdf:Description>
+          <rdf:first rdf:resource="#isParent"/>
+          <rdf:rest rdf:resource="http://www.w3.org/1999/02/22-rdf-syntax-ns#nil"/>
+        </rdf:Description>
+      </rdf:rest>
+    </rdf:Description>
+  </owl:propertyChainAxiom>
+  <rdfs:label>являетсяБратомСестрой</rdfs:label>
+</owl:ObjectProperty>
+
+<owl:DatatypeProperty rdf:about="#Age">
+  <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#integer"/>
+  <rdfs:label>Возраст</rdfs:label>
+</owl:DatatypeProperty>
+
+<owl:DatatypeProperty rdf:about="#PlaceOfBirth">
+  <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+  <rdfs:label>МестоРождения</rdfs:label>
+</owl:DatatypeProperty>
+
+<owl:DatatypeProperty rdf:about="#population">
+  <rdfs:domain rdf:resource="#Settlement"/>
+  <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#int"/>
+  <rdfs:label>население</rdfs:label>
+</owl:DatatypeProperty>
+
+<owl:DatatypeProperty rdf:about="#square">
+  <rdfs:domain rdf:resource="#Area"/>
+  <rdfs:range rdf:resource="http://www.w3.org/2002/07/owl#real"/>
+  <rdfs:label>Площадь</rdfs:label>
+</owl:DatatypeProperty>
+
+<owl:Class rdf:about="#Area"/>
+
+<owl:Class rdf:about="#Object"/>
+
+<owl:Class rdf:about="#Settlement">
+  <rdfs:subClassOf rdf:resource="#Area"/>
+</owl:Class>
+
+<owl:Class rdf:about="#City">
+  <rdfs:subClassOf rdf:resource="#Settlement"/>
+</owl:Class>
+
+<owl:Class rdf:about="#Country">
+  <rdfs:subClassOf rdf:resource="#Area"/>
+</owl:Class>
+
+<owl:Class rdf:about="#Lake">
+  <rdfs:subClassOf rdf:resource="#Object"/>
+</owl:Class>
+
+<owl:Class rdf:about="#Mountain">
+  <rdfs:subClassOf rdf:resource="#Object"/>
+</owl:Class>
+
+<owl:Class rdf:about="#Region">
+  <rdfs:subClassOf rdf:resource="#Area"/>
+</owl:Class>
+
+<owl:Class rdf:about="#River">
+  <rdfs:subClassOf rdf:resource="#Object"/>
+</owl:Class>
+
+<owl:Class rdf:about="#Township">
+  <rdfs:subClassOf rdf:resource="#Settlement"/>
+</owl:Class>
+
+<owl:NamedIndividual rdf:about="#Kazakhstan">
+  <rdf:type rdf:resource="#Country"/>
+  <rdfs:label xml:lang="kz">Қазақстан</rdfs:label>
+  <rdfs:label xml:lang="en">Kazakhstan</rdfs:label>
+  <rdfs:label xml:lang="ru">Казахстан</rdfs:label>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="#Almaty Region">
+  <rdf:type rdf:resource="#Region"/>
+  <isPart rdf:resource="#Kazakhstan"/>
+  <rdfs:label xml:lang="kz">Алматы облысы</rdfs:label>
+  <rdfs:label xml:lang="en">Almaty Region</rdfs:label>
+  <rdfs:label xml:lang="ru">Алматинская область</rdfs:label>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="#Akmola Region">
+  <rdf:type rdf:resource="#Region"/>
+  <isPart rdf:resource="#Kazakhstan"/>
+  <rdfs:label xml:lang="kz">Ақмола облысы</rdfs:label>
+  <rdfs:label xml:lang="en">Akmola Region</rdfs:label>
+  <rdfs:label xml:lang="ru">Акмолинская область</rdfs:label>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="#Aktobe Region">
+  <rdf:type rdf:resource="#Region"/>
+  <isPart rdf:resource="#Kazakhstan"/>
+  <rdfs:label xml:lang="kz">Ақтөбе облысы</rdfs:label>
+  <rdfs:label xml:lang="en">Aktobe Region</rdfs:label>
+  <rdfs:label xml:lang="ru">Актюбинская область</rdfs:label>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="#Almaty">
+  <rdf:type rdf:resource="#Region"/>
+  <rdf:type rdf:resource="#Settlement"/>
+  <isPart rdf:resource="#Almaty Region"/>
+  <rdfs:label xml:lang="kz">Алматы</rdfs:label>
+  <rdfs:label xml:lang="en">Almaty</rdfs:label>
+  <rdfs:label xml:lang="ru">Алматы</rdfs:label>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="#Atyrau Region">
+  <rdf:type rdf:resource="#Region"/>
+  <isPart rdf:resource="#Kazakhstan"/>
+  <rdfs:label xml:lang="kz">Атырау облысы</rdfs:label>
+  <rdfs:label xml:lang="en">Atyrau Region</rdfs:label>
+  <rdfs:label xml:lang="ru">Атырауская область</rdfs:label>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="#East Kazakhstan Region">
+  <rdf:type rdf:resource="#Region"/>
+  <isPart rdf:resource="#Kazakhstan"/>
+  <rdfs:label xml:lang="kz">Шығыс Қазақстан облысы</rdfs:label>
+  <rdfs:label xml:lang="en">East Kazakhstan Region</rdfs:label>
+  <rdfs:label xml:lang="ru">Восточно-Казахстанская область</rdfs:label>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="#Karaganda Region">
+  <rdf:type rdf:resource="#Region"/>
+  <isPart rdf:resource="#Kazakhstan"/>
+  <rdfs:label xml:lang="kz">Қарағанды облысы</rdfs:label>
+  <rdfs:label xml:lang="en">Karaganda Region</rdfs:label>
+  <rdfs:label xml:lang="ru">Карагандинская область</rdfs:label>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="#Kostanay Region">
+  <rdf:type rdf:resource="#Region"/>
+  <isPart rdf:resource="#Kazakhstan"/>
+  <rdfs:label xml:lang="kz">Қостанай облысы</rdfs:label>
+  <rdfs:label xml:lang="en">Kostanay Region</rdfs:label>
+  <rdfs:label xml:lang="ru">Костанайская область</rdfs:label>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="#Kyzylorda Region">
+  <rdf:type rdf:resource="#Region"/>
+  <isPart rdf:resource="#Kazakhstan"/>
+  <rdfs:label xml:lang="kz">Қызылорда облысы</rdfs:label>
+  <rdfs:label xml:lang="en">Kyzylorda Region</rdfs:label>
+  <rdfs:label xml:lang="ru">Кызылординская область</rdfs:label>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="#Mangystau Region">
+  <rdf:type rdf:resource="#Region"/>
+  <isPart rdf:resource="#Kazakhstan"/>
+  <rdfs:label xml:lang="kz">Маңғыстау облысы</rdfs:label>
+  <rdfs:label xml:lang="en">Mangystau Region</rdfs:label>
+  <rdfs:label xml:lang="ru">Мангистауская область</rdfs:label>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="#North Kazakhstan Region">
+  <rdf:type rdf:resource="#Region"/>
+  <isPart rdf:resource="#Kazakhstan"/>
+  <rdfs:label xml:lang="kz">Солтүстік Қазақстан облысы</rdfs:label>
+  <rdfs:label xml:lang="en">North Kazakhstan Region</rdfs:label>
+  <rdfs:label xml:lang="ru">Северо-Казахстанская область</rdfs:label>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="#Nur-Sultan">
+  <rdf:type rdf:resource="#Region"/>
+  <rdf:type rdf:resource="#Settlement"/>
+  <isPart rdf:resource="#Akmola Region"/>
+  <rdfs:label xml:lang="kz">Нұр-Сұлтан</rdfs:label>
+  <rdfs:label xml:lang="en">Nur-Sultan</rdfs:label>
+  <rdfs:label xml:lang="ru">Нур-Султан</rdfs:label>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="#Pavlodar Region">
+  <rdf:type rdf:resource="#Region"/>
+  <isPart rdf:resource="#Kazakhstan"/>
+  <rdfs:label xml:lang="kz">Павлодар облысы</rdfs:label>
+  <rdfs:label xml:lang="en">Pavlodar Region</rdfs:label>
+  <rdfs:label xml:lang="ru">Павлодарская область</rdfs:label>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="#Turkestan Region">
+  <rdf:type rdf:resource="#Region"/>
+  <isPart rdf:resource="#Kazakhstan"/>
+  <rdfs:label xml:lang="kz">Түркістан облысы</rdfs:label>
+  <rdfs:label xml:lang="en">Turkestan Region</rdfs:label>
+  <rdfs:label xml:lang="ru">Туркестанская область</rdfs:label>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="#West Kazakhstan Region">
+  <rdf:type rdf:resource="#Region"/>
+  <isPart rdf:resource="#Kazakhstan"/>
+  <rdfs:label xml:lang="kz">Батыс Қазақстан облысы</rdfs:label>
+  <rdfs:label xml:lang="en">West Kazakhstan Region</rdfs:label>
+  <rdfs:label xml:lang="ru">Западно-Казахстанская область</rdfs:label>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="#Astana">
+  <rdf:type rdf:resource="#Settlement"/>
+  <rdfs:label xml:lang="kz">Астана</rdfs:label>
+  <rdfs:label xml:lang="en">Astana</rdfs:label>
+  <rdfs:label xml:lang="ru">Астана</rdfs:label>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="#Aktobe">
+  <rdf:type rdf:resource="#Settlement"/>
+  <isPart rdf:resource="#Aktobe Region"/>
+  <rdfs:label xml:lang="kz">Ақтөбе</rdfs:label>
+  <rdfs:label xml:lang="en">Aktobe</rdfs:label>
+  <rdfs:label xml:lang="ru">Актюбинск</rdfs:label>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="#Atyrau">
+  <rdf:type rdf:resource="#Settlement"/>
+  <isPart rdf:resource="#Atyrau Region"/>
+  <rdfs:label xml:lang="kz">Атырау</rdfs:label>
+  <rdfs:label xml:lang="en">Atyrau</rdfs:label>
+  <rdfs:label xml:lang="ru">Атырау</rdfs:label>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="#Karaganda">
+  <rdf:type rdf:resource="#Settlement"/>
+  <isPart rdf:resource="#Karaganda Region"/>
+  <rdfs:label xml:lang="kz">Қарағанды</rdfs:label>
+  <rdfs:label xml:lang="en">Karaganda</rdfs:label>
+  <rdfs:label xml:lang="ru">Караганда</rdfs:label>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="#Kostanay">
+  <rdf:type rdf:resource="#Settlement"/>
+  <isPart rdf:resource="#Kostanay Region"/>
+  <rdfs:label xml:lang="kz">Қостанай</rdfs:label>
+  <rdfs:label xml:lang="en">Kostanay</rdfs:label>
+  <rdfs:label xml:lang="ru">Костанай</rdfs:label>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="#Kyzylorda">
+  <rdf:type rdf:resource="#Settlement"/>
+  <isPart rdf:resource="#Kyzylorda Region"/>
+  <rdfs:label xml:lang="kz">Қызылорда</rdfs:label>
+  <rdfs:label xml:lang="en">Kyzylorda</rdfs:label>
+  <rdfs:label xml:lang="ru">Кызылорда</rdfs:label>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="#Pavlodar">
+  <rdf:type rdf:resource="#Settlement"/>
+  <isPart rdf:resource="#Pavlodar Region"/>
+  <rdfs:label xml:lang="kz">Павлодар</rdfs:label>
+  <rdfs:label xml:lang="en">Pavlodar</rdfs:label>
+  <rdfs:label xml:lang="ru">Павлодар</rdfs:label>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="#Taraz">
+  <rdf:type rdf:resource="#Settlement"/>
+  <rdfs:label xml:lang="kz">Тараз</rdfs:label>
+  <rdfs:label xml:lang="en">Taraz</rdfs:label>
+  <rdfs:label xml:lang="ru">Тараз</rdfs:label>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="#Turkestan">
+  <rdf:type rdf:resource="#Settlement"/>
+  <isPart rdf:resource="#Turkestan Region"/>
+  <rdfs:label xml:lang="kz">Түркістан</rdfs:label>
+  <rdfs:label xml:lang="en">Turkestan</rdfs:label>
+  <rdfs:label xml:lang="ru">Туркестан</rdfs:label>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="#Semey">
+  <rdf:type rdf:resource="#Settlement"/>
+  <isPart rdf:resource="#East Kazakhstan Region"/>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="#Aktau">
+  <rdf:type rdf:resource="#Settlement"/>
+  <isPart rdf:resource="#Mangystau Region"/>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="#Petropavl">
+  <rdf:type rdf:resource="#Settlement"/>
+  <isPart rdf:resource="#North Kazakhstan Region"/>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="#Oral">
+  <rdf:type rdf:resource="#Settlement"/>
+  <isPart rdf:resource="#West Kazakhstan Region"/>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="#Altai Mountains">
+  <rdf:type rdf:resource="#Object"/>
+  <isPart rdf:resource="#East Kazakhstan Region"/>
+  <rdfs:label xml:lang="kz">Алтай таулары</rdfs:label>
+  <rdfs:label xml:lang="en">Altai Mountains</rdfs:label>
+  <rdfs:label xml:lang="ru">Алтайские горы</rdfs:label>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="#Caspian Sea">
+  <rdf:type rdf:resource="#Object"/>
+  <isPart rdf:resource="#Mangystau Region"/>
+  <rdfs:label xml:lang="kz">Каспий теңізі</rdfs:label>
+  <rdfs:label xml:lang="en">Caspian Sea</rdfs:label>
+  <rdfs:label xml:lang="ru">Каспийское море</rdfs:label>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="#Zhetysu District">
+  <rdf:type rdf:resource="#Object"/>
+  <rdfs:label xml:lang="kz">Жетісу ауданы</rdfs:label>
+  <rdfs:label xml:lang="en">Zhetysu District</rdfs:label>
+  <rdfs:label xml:lang="ru">Жетысуский район</rdfs:label>
+</owl:NamedIndividual>
+
+
+</rdf:RDF>
